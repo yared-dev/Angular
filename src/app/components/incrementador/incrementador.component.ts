@@ -10,7 +10,7 @@ export class IncrementadorComponent implements OnInit {
     this.btnClass = `btn ${this.btnClass}`;
   }
   //para renombrar un input se hace con eso "valor"
-  @Input('valor') progress: number = 10;
+  @Input('valor') progress: number = 30;
   @Input() btnClass: string = 'btn-primary';
 
   @Output() out_value: EventEmitter<number> = new EventEmitter();

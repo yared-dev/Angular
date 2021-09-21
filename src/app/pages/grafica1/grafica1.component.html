@@ -1,1 +1,31 @@
-<p>grafica1 works!</p>
+<div class="row">
+  <div class="col-6">
+    <app-dona title="Compras"></app-dona>
+  </div>
+  <div class="col-6">
+    <app-dona
+      title="Compras"
+      [label]="label1"
+      [data]="data1"
+      [colors]="colors1"
+    ></app-dona>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <app-dona
+      title="Empleados"
+      [label]="label2"
+      [data]="data2"
+      [colors]="colors2"
+    ></app-dona>
+  </div>
+  <div class="col-6">
+    <app-dona
+      title="Admin"
+      [label]="label3"
+      [data]="data3"
+      [colors]="colors3"
+    ></app-dona>
+  </div>
+</div>
