@@ -23,7 +23,7 @@
             <li>
               <a routerLink="/dashboard/accountSettings">Account Setting</a>
             </li>
-            <li><a routerLink="/login">Logout</a></li>
+            <li><a (click)="logout()">Logout</a></li>
           </ul>
         </li>
         <li class="nav-devider"></li>
@@ -46,7 +46,8 @@
             <li *ngFor="let subMenuitem of item.submenu">
               <a
                 [routerLink]="subMenuitem.url"
-                routerLinkActive="router-link-active"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
                 >{{ subMenuitem.title }}
               </a>
             </li>

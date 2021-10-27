@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  constructor(private usuarioServide: UsuariosService) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  logout() {
+    this.usuarioServide.logout();
   }
-
 }

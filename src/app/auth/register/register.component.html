@@ -11,7 +11,9 @@
       <form
         class="form-horizontal form-material"
         id="loginform"
-        action="index.html"
+        autocomplete="false"
+        [formGroup]="registerForm"
+        (ngSubmit)="crearUsuario()"
       >
         <a href="javascript:void(0)" class="text-center db"
           ><img src="./assets/images/logo-icon.png" alt="Home" /><br /><img
@@ -27,6 +29,7 @@
               type="text"
               required=""
               placeholder="Name"
+              formControlName="nombre"
             />
           </div>
         </div>
@@ -36,6 +39,7 @@
               class="form-control"
               type="text"
               required=""
+              formControlName="email"
               placeholder="Email"
             />
           </div>
@@ -47,6 +51,7 @@
               type="password"
               required=""
               placeholder="Password"
+              formControlName="password"
             />
           </div>
         </div>
@@ -57,17 +62,30 @@
               type="password"
               required=""
               placeholder="Confirm Password"
+              formControlName="password2"
             />
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-12">
             <div class="checkbox checkbox-primary p-t-0">
-              <input id="checkbox-signup" type="checkbox" />
+              <input
+                id="checkbox-signup"
+                type="checkbox"
+                formControlName="terminos"
+              />
               <label for="checkbox-signup">
                 I agree to all <a href="#">Terms</a></label
               >
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-danger">
+            <p *ngIf="camporNoValido('nombre')">El nombre es obligatorio</p>
+            <p *ngIf="camporNoValido('email')">El email es obligatorio</p>
+            <p *ngIf="aceptaTerminos()">El terminos es obligatorio</p>
+            <p *ngIf="!registerForm.valid">Las contraseñas no son iguales</p>
           </div>
         </div>
         <div class="form-group text-center m-t-20">
@@ -88,7 +106,10 @@
           <div class="col-sm-12 text-center">
             <p>
               Already have an account?
-              <a href="pages-login-2.html" class="text-info m-l-5"
+              <a
+                [routerLink]="['/login']"
+                routerLinkActive="router-link-active"
+                class="text-info m-l-5"
                 ><b>Sign In</b></a
               >
             </p>
