@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -9,11 +10,16 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class SidebarComponent {
   menuItems: any[];
+  public imgUrl? = '';
+  public name? = '';
+  public usuario?: Usuario;
   constructor(
     private sidebarService: SidebarService,
     private userService: UsuariosService
   ) {
     this.menuItems = sidebarService.menu;
+    this.imgUrl = userService.usuario?.getImg;
+    this.name = userService.usuario?.getName;
   }
 
   logout() {

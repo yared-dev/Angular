@@ -42,10 +42,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.usuariosService.loginUsuario(this.loginForm.value).subscribe(
       (resp) => {
-        console.log(resp);
         if (this.loginForm.get('remember')?.value) {
-          localStorage.setItem('email', this.loginForm.get('email')?.value);
           this.router.navigateByUrl('/');
+          localStorage.setItem('email', this.loginForm.get('email')?.value);
         } else {
           localStorage.removeItem('email');
         }
@@ -54,8 +53,6 @@ export class LoginComponent implements OnInit {
         Swal.fire('Error', err.error.msg, 'error');
       }
     );
-    // this.router.navigateByUrl('/');
-    console.log(this.loginForm.value);
   }
 
   renderButton() {
@@ -83,6 +80,7 @@ export class LoginComponent implements OnInit {
         const id_token = googleUser.getAuthResponse().id_token;
         this.usuariosService.loginGoogle(id_token).subscribe((res) => {
           this.ngZone.run(() => {
+            console.log('entre pero nunca navegue');
             this.router.navigateByUrl('/');
           });
         });

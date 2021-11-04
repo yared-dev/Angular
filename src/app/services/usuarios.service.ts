@@ -7,6 +7,7 @@ import { registerForm } from '../interfaces/register-form.interfaces';
 import { loginForm } from '../interfaces/login-form.interfaces';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
 const base_url = environment.base_url;
 declare const gapi: any;
 @Injectable({
@@ -14,6 +15,7 @@ declare const gapi: any;
 })
 export class UsuariosService {
   public auth2: any;
+  public usuario?: Usuario;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -31,10 +33,12 @@ export class UsuariosService {
         },
       })
       .pipe(
-        tap((resp: any) => {
+        map((resp: any) => {
+          const { email, google, nombre, role, uid, img = '' } = resp.usuarioDB;
+          this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
           localStorage.setItem('token', resp.token);
+          return true;
         }),
-        map((resp) => true),
         catchError((error: any) => of(false))
       );
   }
@@ -57,7 +61,6 @@ export class UsuariosService {
   }
   googleInit() {
     return new Promise((resolve: any) => {
-      console.log('ejecuantao');
       gapi.load('auth2', () => {
         // Retrieve the singleton for the GoogleAuth library and set up the client.
         this.auth2 = gapi.auth2.init({

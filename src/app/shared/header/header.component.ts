@@ -7,7 +7,14 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styles: [],
 })
 export class HeaderComponent {
-  constructor(private usuarioServide: UsuariosService) {}
+  public imgUrl? = '';
+  public name? = '';
+  public email?: string ;
+  constructor(private usuarioServide: UsuariosService) {
+    this.imgUrl = usuarioServide.usuario?.getImg;
+    this.name = usuarioServide.usuario?.getName;
+    this.email = usuarioServide.usuario?.getEmail;
+  }
 
   logout() {
     this.usuarioServide.logout();

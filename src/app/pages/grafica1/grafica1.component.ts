@@ -14,6 +14,7 @@ export class Grafica1Component {
   public data1 = [[350, 450, 100]];
   public colors1 = [{ backgroundColor: ['#6857e6', '#009fee', '#f02059'] }];
 
+  //empleados
   public label2: string[] = ['Spiderman', 'Superman', 'Batman'];
   public data2 = [[300, 250, 700]];
   public colors2 = [{ backgroundColor: ['#6857e5', '#009fea', '#f02056'] }];
