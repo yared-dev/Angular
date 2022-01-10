@@ -10,14 +10,13 @@ import { interval, Observable, Subscription } from 'rxjs';
 export class RxjsComponent implements OnDestroy {
   public intervalSubs: Subscription;
   constructor() {
-    let i = -1;
     this.intervalSubs = this.retornarIntervalo().subscribe((e) =>
       console.log({ e })
     );
   }
   retornarIntervalo(): Observable<number> {
     return interval(100).pipe(
-      // take(10),
+      take(10),
       map((valor) => {
         return valor + 1;
       }),

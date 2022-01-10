@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -6,17 +7,16 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   templateUrl: './header.component.html',
   styles: [],
 })
-export class HeaderComponent {
-  public imgUrl? = '';
-  public name? = '';
-  public email?: string ;
-  constructor(private usuarioServide: UsuariosService) {
-    this.imgUrl = usuarioServide.usuario?.getImg;
-    this.name = usuarioServide.usuario?.getName;
-    this.email = usuarioServide.usuario?.getEmail;
-  }
+export class HeaderComponent implements OnInit {
+  public usuario?: Usuario;
+
+  constructor(private usuarioService: UsuariosService) {}
 
   logout() {
-    this.usuarioServide.logout();
+    this.usuarioService.logout();
+  }
+
+  ngOnInit(): void {
+    this.usuario = this.usuarioService.usuario;
   }
 }

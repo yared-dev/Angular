@@ -23,19 +23,23 @@ export class UsuariosService {
   ) {
     this.googleInit();
   }
-
+  get token() {
+    return localStorage.getItem('token') || '';
+  }
+  get uid() {
+    return this.usuario?.uid;
+  }
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
     return this.http
       .get(`${base_url}/login/renew-token`, {
         headers: {
-          'x-token': token,
+          'x-token': this.token,
         },
       })
       .pipe(
         map((resp: any) => {
-          const { email, google, nombre, role, uid, img = '' } = resp.usuarioDB;
-          this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+          const { email, google, nombre, role, _id, img = '' } = resp.usuarioDB;
+          this.usuario = new Usuario(nombre, email, '', img, google, role, _id);
           localStorage.setItem('token', resp.token);
           return true;
         }),
@@ -44,6 +48,14 @@ export class UsuariosService {
   }
   crearUsuario(formData: registerForm) {
     return this.http.post(`${base_url}/usuarios`, formData);
+  }
+  actualizarUsuario(data: { email: string; nombre: string; role: string }) {
+    data = { ...data, role: this.usuario?.role || '' };
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token,
+      },
+    });
   }
   loginUsuario(formData: loginForm) {
     return this.http.post(`${base_url}/login`, formData).pipe(
