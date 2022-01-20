@@ -1,10 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -25,7 +20,7 @@ export class LoginComponent implements OnInit {
       Validators.required,
       Validators.email,
     ]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('galactus', [Validators.required]),
     remember: new FormControl('false'),
   });
 
