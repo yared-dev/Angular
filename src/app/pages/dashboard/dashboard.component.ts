@@ -3,14 +3,23 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styles: [
-  ]
+  styles: [],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
+  public trabajos = {
+    on: 'asdasd',
+    os: 'asdasd',
+    as: 'asdasd',
+    ds: 'asdasd',
+    s: 'dasd',
+    d: 'asdasd',
+    aasds: 'asdasd',
+    dss: 'asdasd',
+    ass: 'asdasd',
+    dsas: 'asdasd',
+    asw: 'asdasd',
+  };
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  data = Object.values(this.trabajos);
 }

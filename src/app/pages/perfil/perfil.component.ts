@@ -36,14 +36,12 @@ export class PerfilComponent implements OnInit {
   actualizarPerfil() {
     this.usuarioService.actualizarUsuario(this.perfilForm?.value).subscribe(
       () => {
-        console.log('no entre');
         const { nombre, email } = this.perfilForm?.value;
         this.usuario!.nombre = nombre;
         this.usuario!.email = email;
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
       },
       (err: any) => {
-        console.log('entre al error');
         Swal.fire('Error', err.error.msg, 'error');
       }
     );
@@ -64,8 +62,9 @@ export class PerfilComponent implements OnInit {
     this.fileUploadServices
       .actualizarFoto(this.imagenSubir, 'usuarios', this.usuario?.uid)
       .then((res) => {
-        console.log(res);
         this.usuario!.img = res;
-      });
+        Swal.fire('Guardado', 'Imagen Actualizada', 'success');
+      })
+      .catch((e) => Swal.fire('Error', e.error.msg, 'error'));
   }
 }
