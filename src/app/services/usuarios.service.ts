@@ -1,13 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 
 import { registerForm } from '../interfaces/register-form.interfaces';
 import { loginForm } from '../interfaces/login-form.interfaces';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
 const base_url = environment.base_url;
 declare const gapi: any;
 @Injectable({
@@ -28,6 +29,13 @@ export class UsuariosService {
   }
   get uid() {
     return this.usuario?.uid;
+  }
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
   }
   validarToken(): Observable<boolean> {
     return this.http
@@ -51,11 +59,11 @@ export class UsuariosService {
   }
   actualizarUsuario(data: { email: string; nombre: string; role: string }) {
     data = { ...data, role: this.usuario?.role || '' };
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+    return this.http.put(
+      `${base_url}/usuarios/${this.uid}`,
+      data,
+      this.headers
+    );
   }
   loginUsuario(formData: loginForm) {
     return this.http.post(`${base_url}/login`, formData).pipe(
@@ -92,5 +100,41 @@ export class UsuariosService {
         this.router.navigateByUrl('/login');
       });
     });
+  }
+  cargarUsuarios(desde: number = 0) {
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http
+      .get<{ total: number; usuarios: Usuario[] }>(url, this.headers)
+      .pipe(
+        delay(500),
+        map((resp) => {
+          const usuarios = resp.usuarios.map((user: any) => {
+            return new Usuario(
+              user.nombre,
+              user.email,
+              '',
+              user.img,
+              user.google,
+              user.role,
+              user._id
+            );
+          });
+          return { total: resp.total, usuarios };
+        })
+      );
+  }
+  eliminarUsuario(usuario: Usuario) {
+    console.log('eliminado');
+    return this.http.delete(
+      `${base_url}/usuarios/${usuario.uid}`,
+      this.headers
+    );
+  }
+  guardarUsuario(usuario: Usuario) {
+    return this.http.put(
+      `${base_url}/usuarios/${usuario.uid}`,
+      usuario,
+      this.headers
+    );
   }
 }

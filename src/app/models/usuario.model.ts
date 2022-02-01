@@ -13,10 +13,11 @@ export class Usuario {
   ) {}
 
   get getImg() {
-    if (this.img?.includes('https')) {
+    if (!this.img) {
+      return `${api_url}/upload/usuarios/no-imgen`;
+    } else if (this.img?.includes('https')) {
       return this.img;
-    }
-    if (this.img) {
+    } else if (this.img) {
       return `${api_url}/upload/usuarios/${this.img}`;
     } else {
       return `${api_url}/upload/usuarios/no-imgen`;
