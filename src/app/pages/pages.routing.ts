@@ -12,7 +12,9 @@ import { AuthGuard } from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
 
 //mantenimientos
-import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { TrabajosComponent } from './mantenimientos/trabajos/trabajos.component';
+import { ProductosComponent } from './mantenimientos/productos/productos.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -56,6 +58,16 @@ const routes: Routes = [
         path: 'usuarios',
         component: UsuariosComponent,
         data: { titulo: 'Usuarios de aplicacion' },
+      },
+      {
+        path: 'trabajos',
+        component: TrabajosComponent,
+        data: { titulo: 'trabajos' },
+      },
+      {
+        path: 'productos',
+        component: ProductosComponent,
+        data: { titulo: 'productos' },
       },
     ],
   },

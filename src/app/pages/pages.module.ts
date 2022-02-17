@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 //mismodulos
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -15,7 +16,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { TrabajosComponent } from './mantenimientos/trabajos/trabajos.component';
+import { ProductosComponent } from './mantenimientos/productos/productos.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component'
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
+    TrabajosComponent,
+    ProductosComponent,
   ],
   exports: [
     DashboardComponent,
@@ -45,6 +50,7 @@ import { UsuariosComponent } from './manteniminetos/usuarios/usuarios.component'
     SharedModule,
     RouterModule,
     ComponentsModule,
+    PipesModule,
   ],
 })
 export class PagesModule {}

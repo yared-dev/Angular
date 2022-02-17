@@ -1,0 +1,109 @@
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar Trabajo por Cliente..."
+          (keyup)="buscar(txtTerm.value)"
+          #txtTerm
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="cargando" class="row animated fadeIn slow">
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">cargando</h4>
+      <i class="fa fa-spin fa-refresh fa-2x"></i>
+      <p class="mb-0">Por favor espere</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-right">
+          <button class="btn btn-primary" (click)="crearTrabajo()">
+            <i class="fa fa-hospital-o">Crear Trabajo</i>
+          </button>
+        </div>
+        <h4 class="card-title">Trabajos ({{ trabajo.length }})</h4>
+        <h6 class="card-subtitle">Trabajos <code>Anuales</code></h6>
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <tr class="table-dark">
+                <th class="w100">Terminado</th>
+                <th>Cliente</th>
+                <th class="w140">Modelo</th>
+                <th>Telefono</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th class="w100">Urgencia</th>
+                <th>trabajador</th>
+                <th class="w100 text-center">Fecha</th>
+              </tr>
+            </thead>
+            <tbody style="color: black">
+              <tr *ngFor="let trabajo of trabajo">
+                <td class="text-center">
+                  <a
+                    data-toggle="tooltip"
+                    data-original-title="Guardar Cambios"
+                    class="cursor"
+                    (click)="borrarTrabajo(trabajo)"
+                  >
+                    <i class="fa fa-close text-danger m-r-10"></i>
+                  </a>
+                  <a
+                    data-toggle="tooltip"
+                    data-original-title="Borrar"
+                    class="cursor"
+                    (click)="actualizarTrabajo(trabajo)"
+                  >
+                    <i class="fa fa-save text-primary"></i>
+                  </a>
+                </td>
+                <td>
+                  {{ trabajo.nombre }}
+                </td>
+                <td>
+                  {{ trabajo.modelo }}
+                </td>
+                <td>
+                  {{ trabajo.telefono }}
+                </td>
+                <td>
+                  {{ trabajo.precio }}
+                </td>
+                <td>
+                  {{ trabajo.description }}
+                </td>
+                <td>
+                  {{ trabajo.urgencia }}
+                </td>
+                <td>
+                  {{ trabajo.usuario }}
+                </td>
+                <td>
+                  {{ trabajo.date | date: "shortDate" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary" (click)="cambiarPagina(-5)">
+          Anterior
+        </button>
+        &nbsp;
+        <button class="btn btn-secondary" (click)="cambiarPagina(5)">
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

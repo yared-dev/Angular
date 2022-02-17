@@ -8,7 +8,6 @@ import { loginForm } from '../interfaces/login-form.interfaces';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
 const base_url = environment.base_url;
 declare const gapi: any;
 @Injectable({

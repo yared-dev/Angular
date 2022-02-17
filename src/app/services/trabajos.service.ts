@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { delay, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { trabajosForm } from '../interfaces/trabajos-form.interfaces';
-import { Trabajo } from '../models/trabajo.model';
+import { Trabajo, TrabajoUserInterface } from '../models/trabajo.model';
 
 const base_url = environment.base_url;
 
@@ -19,24 +20,58 @@ export class TrabajosService {
     return localStorage.getItem('token') || '';
   }
   get uid() {
-    return this.trabajo?.uid;
+    return this.trabajo?._id;
   }
-
-  crearTarabjo(formData: trabajosForm) {
-    return this.http.post(`${base_url}/trabajos`, formData);
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
   }
-  actualizarTrabajo(data: {
+  cargarTrabajo(desde: number = 0) {
+    const url = `${base_url}/trabajos?desde=${desde}`;
+    return this.http.get<TrabajoUserInterface>(url, this.headers).pipe(
+      delay(50),
+      map((resp) => {
+        console.log(resp);
+        const trabajos = resp.trabajo.map((trabajo: any) => {
+          return new Trabajo(
+            trabajo.nombre,
+            trabajo.modelo,
+            trabajo.telefono,
+            trabajo.description,
+            trabajo.precio,
+            trabajo.urgencia,
+            trabajo.date,
+            trabajo._id,
+            trabajo.usuario
+          );
+        });
+        return { total: resp.total, trabajos };
+      })
+    );
+  }
+  crearTarabjo(data: {
     nombre: string;
     modelo: string;
     telefono: number;
-    description: string;
     precio: number;
+    description: string;
     urgencia: string;
   }) {
-    return this.http.put(`${base_url}/trabajos/${this.uid}`, data, {
+    console.log(data);
+    return this.http.post(`${base_url}/trabajos`, data, this.headers);
+  }
+  actualizarTrabajo(trabajo: Trabajo) {
+    return this.http.put(`${base_url}/trabajos/${this.uid}`, trabajo, {
       headers: {
         'x-token': this.token,
       },
     });
+  }
+  borrarTrabajo(trabajo: Trabajo) {
+    const url = `${base_url}/trabajos/${trabajo._id}`;
+    return this.http.delete(url, this.headers);
   }
 }

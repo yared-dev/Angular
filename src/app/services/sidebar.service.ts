@@ -41,7 +41,11 @@ export class SidebarService {
         },
         {
           title: 'Trabajos',
-          url: '/',
+          url: 'trabajos',
+        },
+        {
+          title: 'Productos',
+          url: 'productos',
         },
       ],
     },

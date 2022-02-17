@@ -7,7 +7,7 @@ const base_url = environment.base_url;
 })
 export class ModalImagenService {
   private _ocultarModal: boolean = true;
-  public tipo: 'usuarios' | 'trabajos' | 'hospitales' | 'medicos' | undefined;
+  public tipo: 'usuarios' | 'trabajos' | 'productos' | 'medicos' | undefined;
   public id: string = '';
   public img: string = '';
   public nuevaImg: EventEmitter<string> = new EventEmitter<string>();
@@ -17,7 +17,7 @@ export class ModalImagenService {
     return this._ocultarModal;
   }
   abrirModal(
-    tipo: 'usuarios' | 'trabajos' | 'hospitales' | 'medicos',
+    tipo: 'usuarios' | 'trabajos' | 'productos' | 'medicos',
     id: any,
     img: string = 'no-img'
   ) {

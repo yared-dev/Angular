@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Productos } from '../models/productos.model';
 import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
@@ -36,8 +37,20 @@ export class BusquedasService {
         )
     );
   }
+  private transformarProductos(resultados: any[]): Productos[] {
+    return resultados.map(
+      (producto) =>
+        new Productos(
+          producto.nombre,
+          producto.precio,
+          producto.cantidad,
+          producto.img,
+          producto._id
+        )
+    );
+  }
   buscar(
-    tipo: 'usuarios' | 'trabajos' | 'hospitales' | 'medicos',
+    tipo: 'usuarios' | 'trabajos' | 'productos' | 'medicos',
     termino: string
   ) {
     const url = `${base_url}/todo/coleccion/${tipo}/${termino}`;
@@ -46,6 +59,9 @@ export class BusquedasService {
         switch (tipo) {
           case 'usuarios':
             return this.transformarUsuarios(resp.resultados);
+
+          case 'productos':
+            return this.transformarProductos(resp.resultados);
           default:
             return [];
         }
