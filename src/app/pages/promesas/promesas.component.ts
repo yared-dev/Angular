@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -12,21 +12,14 @@ export class PromesasComponent implements OnInit {
   });
   constructor() {}
 
-  ngOnInit(): void {
-    this.getUsuario().then((users) => {
-      console.log(users);
-    });
-    
-  }
-  getUsuario() {
-    const promesa = new Promise((res) => {
-      fetch('https://reqres.in/api/users?page=2')
-        .then((res) => res.json())
-        .then((body) => console.log(body.data));
-    });
-    return promesa;
-  }
+  ngOnInit(): void {}
   getDate() {
-    console.log(this.calendarForm.value);
+    var data = new Date();
+    var year = data.toLocaleDateString();
+    var hora =
+      data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
+    console.log(data);
+    console.log(year);
+    console.log(hora);
   }
 }

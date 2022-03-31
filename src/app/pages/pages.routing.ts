@@ -15,6 +15,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { TrabajosComponent } from './mantenimientos/trabajos/trabajos.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
+import { AdminGuard } from '../guards/admin.guard';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -54,19 +55,23 @@ const routes: Routes = [
       },
 
       //mantenimientos
+      //rutas de admin
       {
         path: 'usuarios',
+        canActivate: [AdminGuard],
         component: UsuariosComponent,
         data: { titulo: 'Usuarios de aplicacion' },
       },
       {
         path: 'trabajos',
+        canActivate: [AdminGuard],
         component: TrabajosComponent,
         data: { titulo: 'trabajos' },
       },
       {
         path: 'productos',
         component: ProductosComponent,
+        canActivate: [AdminGuard],
         data: { titulo: 'productos' },
       },
     ],

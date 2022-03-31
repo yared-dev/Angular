@@ -24,12 +24,22 @@ export class HorariosService {
   get uid() {
     return this.usuario?.uid;
   }
-
-  enviarHoraEntrada(hour: number) {
-    return this.http.put(`${base_url}/horarios/${this.uid}`, hour, {
+  get headers() {
+    return {
       headers: {
         'x-token': this.token,
       },
-    });
+    };
+  }
+  enviarHoraEntrada() {
+    return this.http.post(
+      `${base_url}/horarios`,
+      { id: this.uid },
+      this.headers
+    );
+  }
+  get_data_horario() {
+    const url = `${base_url}/graficos/horario`;
+    return this.http.get(url, this.headers);
   }
 }

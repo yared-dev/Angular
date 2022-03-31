@@ -44,7 +44,7 @@
                 <th>Precio</th>
                 <th>Descripcion</th>
                 <th class="w100">Urgencia</th>
-                <th>trabajador</th>
+                <th>estado</th>
                 <th class="w100 text-center">Fecha</th>
               </tr>
             </thead>
@@ -53,7 +53,7 @@
                 <td class="text-center">
                   <a
                     data-toggle="tooltip"
-                    data-original-title="Guardar Cambios"
+                    data-original-title="Borrar Trabajo"
                     class="cursor"
                     (click)="borrarTrabajo(trabajo)"
                   >
@@ -61,33 +61,63 @@
                   </a>
                   <a
                     data-toggle="tooltip"
-                    data-original-title="Borrar"
+                    data-original-title="Actualizar Trabajo"
                     class="cursor"
                     (click)="actualizarTrabajo(trabajo)"
                   >
-                    <i class="fa fa-save text-primary"></i>
+                    <i class="fa fa-pencil text-primary m-r-10"></i>
                   </a>
                 </td>
                 <td>
-                  {{ trabajo.nombre }}
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="buscar..."
+                    [(ngModel)]="trabajo.nombre"
+                  />
                 </td>
                 <td>
-                  {{ trabajo.modelo }}
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="buscar..."
+                    [(ngModel)]="trabajo.modelo"
+                  />
                 </td>
                 <td>
-                  {{ trabajo.telefono }}
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="buscar..."
+                    [(ngModel)]="trabajo.telefono"
+                  />
                 </td>
                 <td>
-                  {{ trabajo.precio }}
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="buscar..."
+                    [(ngModel)]="trabajo.precio"
+                  />
                 </td>
                 <td>
-                  {{ trabajo.description }}
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="buscar..."
+                    [(ngModel)]="trabajo.description"
+                  />
                 </td>
                 <td>
-                  {{ trabajo.urgencia }}
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="buscar..."
+                    [(ngModel)]="trabajo.urgencia"
+                  />
                 </td>
                 <td>
-                  {{ trabajo.usuario }}
+                  {{ trabajo.estado }}
                 </td>
                 <td>
                   {{ trabajo.date | date: "shortDate" }}

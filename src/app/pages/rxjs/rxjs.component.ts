@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
   styles: [],
 })
 export class RxjsComponent implements OnDestroy, OnInit {
-  public intervalSubs: Subscription;
   public isDate: Boolean;
 
   constructor(
@@ -19,37 +18,31 @@ export class RxjsComponent implements OnDestroy, OnInit {
     private router: Router
   ) {
     this.isDate = false;
-    this.intervalSubs = this.retornarIntervalo().subscribe((e) =>
-      console.log({ e })
-    );
-  }
-  retornarIntervalo(): Observable<number> {
-    return interval(100).pipe(
-      take(10),
-      map((valor) => {
-        return valor + 1;
-      }),
-      filter((valor) => (valor % 2 === 0 ? true : false))
-    );
   }
 
   getDate() {
     const d = new Date();
     let hour = d.getHours();
-    if (hour < 12) {
+    if (hour < 17) {
       this.isDate = true;
-
       return hour;
     }
     return 0;
   }
   enviarHoraEntrada() {
-    console.log('entre a esta hora');
-    if (this.getDate() === 0) {
-      return;
+    var fechaActual = new Date();
+    var fechaComparar = new Date(`${fechaActual.toDateString()} 12:00:00`);
+    if (fechaActual > fechaComparar) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Llegaste tarde basura',
+        showConfirmButton: false,
+        timer: 600,
+      });
     }
-    //si es valido contnuar
-    this.horariosService.enviarHoraEntrada(this.getDate()).subscribe(
+
+    this.horariosService.enviarHoraEntrada().subscribe(
       (resp) => {
         this.router.navigateByUrl('/');
       },
@@ -63,7 +56,5 @@ export class RxjsComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.getDate();
   }
-  ngOnDestroy(): void {
-    this.intervalSubs.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }

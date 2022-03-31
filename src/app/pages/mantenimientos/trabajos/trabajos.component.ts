@@ -28,7 +28,7 @@ export class TrabajosComponent implements OnInit {
     this.cargando = true;
 
     this.trabajoServices
-      .cargarTrabajo(this.paginaDesde)
+      .cargarTrabajo(this.paginaDesde, true)
       .subscribe(({ total, trabajos }) => {
         this.cargando = false;
         this.trabajo = trabajos;
@@ -75,7 +75,7 @@ export class TrabajosComponent implements OnInit {
       const precio = parseInt(value[3]);
       const description = value[4].toString();
       const urgencia = value[5].toString();
-      console.log(nombre, modelo, telefono, precio, description, urgencia);
+      const estado = false;
       this.trabajoServices
         .crearTarabjo({
           nombre,
@@ -84,6 +84,7 @@ export class TrabajosComponent implements OnInit {
           precio,
           description,
           urgencia,
+          estado,
         })
         .subscribe((resp) => {
           this.cargarTrabajo();
@@ -109,9 +110,22 @@ export class TrabajosComponent implements OnInit {
     });
   }
   actualizarTrabajo(trabajo: Trabajo) {
-    console.log(trabajo);
-    this.trabajoServices.actualizarTrabajo(trabajo).subscribe((res) => {
-      console.log(res);
+    this.trabajoServices.actualizarTrabajo(trabajo).subscribe((resp: any) => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: 'success',
+        title: resp.ok + ' Actualizado',
+      });
     });
   }
 }

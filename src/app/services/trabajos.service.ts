@@ -29,12 +29,13 @@ export class TrabajosService {
       },
     };
   }
-  cargarTrabajo(desde: number = 0) {
-    const url = `${base_url}/trabajos?desde=${desde}`;
+  cargarTrabajo(desde: number = 0, estado: boolean = false) {
+    console.log(desde);
+    console.log(estado);
+    const url = `${base_url}/trabajos?desde=${desde}&estado=${estado}`;
     return this.http.get<TrabajoUserInterface>(url, this.headers).pipe(
       delay(50),
       map((resp) => {
-        console.log(resp);
         const trabajos = resp.trabajo.map((trabajo: any) => {
           return new Trabajo(
             trabajo.nombre,
@@ -59,8 +60,8 @@ export class TrabajosService {
     precio: number;
     description: string;
     urgencia: string;
+    estado: false;
   }) {
-    console.log(data);
     return this.http.post(`${base_url}/trabajos`, data, this.headers);
   }
   actualizarTrabajo(trabajo: Trabajo) {
@@ -73,5 +74,9 @@ export class TrabajosService {
   borrarTrabajo(trabajo: Trabajo) {
     const url = `${base_url}/trabajos/${trabajo._id}`;
     return this.http.delete(url, this.headers);
+  }
+  dataGrafico(): any {
+    const url = `${base_url}/graficos`;
+    return this.http.get(url);
   }
 }

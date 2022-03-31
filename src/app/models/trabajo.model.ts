@@ -10,15 +10,15 @@ export interface TrabajoUserInterface {
 
 export class Trabajo {
   constructor(
+    public estado: boolean,
+    public _id: string,
     public nombre: string,
     public modelo: string,
     public telefono: number,
-    public description: string,
     public precio: number,
+    public description: string,
     public urgencia: string,
-    public date: string,
-    public _id: string,
-    public usuario: string
+    public date?: string
   ) {}
 
   get getUid() {

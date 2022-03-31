@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Productos } from '../models/productos.model';
+import { Trabajo } from '../models/trabajo.model';
 import { Usuario } from '../models/usuario.model';
 
 const base_url = environment.base_url;
@@ -49,6 +50,22 @@ export class BusquedasService {
         )
     );
   }
+  private transformarTrabajos(resultados: any[]): Trabajo[] {
+    return resultados.map(
+      (trabajo) =>
+        new Trabajo(
+          trabajo.estado,
+          trabajo._id,
+          trabajo.nombre,
+          trabajo.modelo,
+          trabajo.telefono,
+          trabajo.precio,
+          trabajo.description,
+          trabajo.urgencia,
+          trabajo.date
+        )
+    );
+  }
   buscar(
     tipo: 'usuarios' | 'trabajos' | 'productos' | 'medicos',
     termino: string
@@ -59,9 +76,10 @@ export class BusquedasService {
         switch (tipo) {
           case 'usuarios':
             return this.transformarUsuarios(resp.resultados);
-
           case 'productos':
             return this.transformarProductos(resp.resultados);
+          case 'trabajos':
+            return this.transformarTrabajos(resp.resultados);
           default:
             return [];
         }

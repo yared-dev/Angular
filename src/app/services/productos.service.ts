@@ -55,4 +55,8 @@ export class ProductosService {
     const url = `${base_url}/productos/${_id}`;
     return this.http.delete(url, this.headers);
   }
+  totalProductos() {
+    const url = `${base_url}/productos/byname`;
+    return this.http.get(url);
+  }
 }
