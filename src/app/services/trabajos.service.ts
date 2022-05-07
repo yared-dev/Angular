@@ -30,23 +30,22 @@ export class TrabajosService {
     };
   }
   cargarTrabajo(desde: number = 0, estado: boolean = false) {
-    console.log(desde);
-    console.log(estado);
     const url = `${base_url}/trabajos?desde=${desde}&estado=${estado}`;
     return this.http.get<TrabajoUserInterface>(url, this.headers).pipe(
       delay(50),
       map((resp) => {
         const trabajos = resp.trabajo.map((trabajo: any) => {
+          console.log(trabajo);
           return new Trabajo(
+            trabajo.estado,
+            trabajo._id,
             trabajo.nombre,
             trabajo.modelo,
             trabajo.telefono,
-            trabajo.description,
             trabajo.precio,
+            trabajo.description,
             trabajo.urgencia,
-            trabajo.date,
-            trabajo._id,
-            trabajo.usuario
+            trabajo.date
           );
         });
         return { total: resp.total, trabajos };
@@ -62,7 +61,7 @@ export class TrabajosService {
     urgencia: string;
     estado: false;
   }) {
-    return this.http.post(`${base_url}/trabajos`, data, this.headers);
+    return this.http.post(`${base_url}/trabajo`, data, this.headers);
   }
   actualizarTrabajo(trabajo: Trabajo) {
     return this.http.put(`${base_url}/trabajos/${this.uid}`, trabajo, {

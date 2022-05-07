@@ -22,11 +22,11 @@ export class SidebarService {
           url: 'grafica1',
         },
         {
-          title: 'Horarios',
+          title: 'Horas trabajadas',
           url: 'promesas',
         },
         {
-          title: 'Rxjs',
+          title: 'Marcar Asistencia',
           url: 'rxjs',
         },
       ],

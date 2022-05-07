@@ -28,37 +28,6 @@ export class Grafica1Component implements OnInit {
   public data3: any = [[]];
   public colors3 = [{ backgroundColor: ['#6857e4', 'black'] }];
   // fin de compras
-  //datos de horario
-  public datos: ChartDataSets[] = [
-    {
-      data: [
-        { x: 0, y: 0.8, r: 15 },
-        { x: 1, y: 1.3, r: 15 },
-        { x: 2, y: 1.3, r: 15 },
-        { x: 3, y: 1.3, r: 15 },
-        { x: 4, y: 1.3, r: 15 },
-      ],
-      label: 'Yared',
-      backgroundColor: 'rgba(0,2,0,0.3)',
-    },
-    {
-      data: [
-        { x: 2, y: 2.3, r: 15 },
-        { x: 26, y: 3, r: 23 },
-      ],
-      label: 'Jhonatan',
-      backgroundColor: 'rgba(0,255,199,0.3)',
-    },
-    {
-      data: [
-        { x: 3, y: 4.3, r: 10 },
-        { x: 26, y: 3, r: 23 },
-      ],
-      label: 'Kendry',
-      backgroundColor: 'rgba(29,255,19,0.3)',
-    },
-  ];
-  //datos de horario
   constructor(
     private trabajoService: TrabajosService,
     private productoService: ProductosService,
@@ -86,18 +55,5 @@ export class Grafica1Component implements OnInit {
       });
     });
   }
-  getHorariosSemanal() {
-    this.horariosService.get_data_horario().subscribe((resp: any) => {
-      console.log(resp);
-      var datos = resp.horario;
-      console.log(datos);
-
-      var usuarios = {
-        yegor: datos[0],
-        jonathan: datos[1],
-        kendry: datos[2],
-      };
-      console.log(usuarios);
-    });
-  }
+  getHorariosSemanal() {}
 }

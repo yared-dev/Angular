@@ -30,11 +30,13 @@ const routes: Routes = [
       {
         path: 'progress',
         component: ProgressComponent,
+        canActivate: [AdminGuard],
         data: { titulo: 'progress' },
       },
       {
         path: 'grafica1',
         component: Grafica1Component,
+        canActivate: [AdminGuard],
         data: { titulo: 'grafica1' },
       },
       {
@@ -47,7 +49,11 @@ const routes: Routes = [
         component: PromesasComponent,
         data: { titulo: 'promesas' },
       },
-      { path: 'rxjs', component: RxjsComponent, data: { titulo: 'rxjs' } },
+      {
+        path: 'rxjs',
+        component: RxjsComponent,
+        data: { titulo: 'MARCAR ENTRADA' },
+      },
       {
         path: 'profile',
         component: PerfilComponent,

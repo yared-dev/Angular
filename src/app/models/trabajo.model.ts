@@ -24,4 +24,8 @@ export class Trabajo {
   get getUid() {
     return this._id;
   }
+
+  public set state(data: boolean) {
+    this.estado = data;
+  }
 }

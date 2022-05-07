@@ -23,7 +23,8 @@ export class RxjsComponent implements OnDestroy, OnInit {
   getDate() {
     const d = new Date();
     let hour = d.getHours();
-    if (hour < 17) {
+    //modificar la hora de entrada maxima
+    if (hour < 21) {
       this.isDate = true;
       return hour;
     }
@@ -31,18 +32,29 @@ export class RxjsComponent implements OnDestroy, OnInit {
   }
   enviarHoraEntrada() {
     var fechaActual = new Date();
-    var fechaComparar = new Date(`${fechaActual.toDateString()} 12:00:00`);
-    if (fechaActual > fechaComparar) {
+    var horaEntrada = new Date(`${fechaActual.toDateString()} 12:00:00`);
+    var horaSalida = new Date(`${fechaActual.toDateString()} 21:00:00`);
+    var tipo_asistencia = '';
+    if (fechaActual < horaEntrada) {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Llegaste tarde basura',
+        title: 'Entrada',
         showConfirmButton: false,
         timer: 600,
       });
+      tipo_asistencia = 'Entrada';
+    } else if (fechaActual > horaEntrada && fechaActual < horaSalida) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Salida',
+        showConfirmButton: false,
+        timer: 600,
+      });
+      tipo_asistencia = 'Salida ';
     }
-
-    this.horariosService.enviarHoraEntrada().subscribe(
+    this.horariosService.enviarHoraEntrada(tipo_asistencia).subscribe(
       (resp) => {
         this.router.navigateByUrl('/');
       },

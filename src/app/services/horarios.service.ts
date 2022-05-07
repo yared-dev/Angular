@@ -31,10 +31,10 @@ export class HorariosService {
       },
     };
   }
-  enviarHoraEntrada() {
+  enviarHoraEntrada(tipo_asistencia: string = '') {
     return this.http.post(
       `${base_url}/horarios`,
-      { id: this.uid },
+      { id: this.uid, tipo_asistencia },
       this.headers
     );
   }

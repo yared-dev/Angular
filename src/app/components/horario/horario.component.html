@@ -1,11 +1,15 @@
-<div style="display: block">
-  <canvas
-    #myCanvas
-    baseChart
-    [datasets]="bubbleChartData"
-    [options]="bubbleChartOptions"
-    [legend]="bubbleChartLegend"
-    [chartType]="bubbleChartType"
-  >
-  </canvas>
+<div>
+  <div style="display: block">
+    <h2>Trabajos mensuales por Trabajador</h2>
+    <span>{{ fecha | date: "shortDate" }}</span>
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+  </div>
 </div>

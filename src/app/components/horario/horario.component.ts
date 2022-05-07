@@ -1,51 +1,38 @@
-import { Component, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Color } from 'ng2-charts';
+import { HorariosService } from 'src/app/services/horarios.service';
 
 @Component({
   selector: 'app-horario',
   templateUrl: './horario.component.html',
   styleUrls: ['./horario.component.css'],
 })
-export class HorarioComponent {
-  // scatter
-  public bubbleChartType: ChartType = 'bubble';
-
-  times: any = [
-    '00:00 am',
-    '07:00 am',
-    '08:00 am',
-    '09:00 am',
-    '10:00 am',
-    '11:00 pm',
-  ];
-  dia: any = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
-
-  public bubbleChartOptions: ChartOptions = {
+export class HorarioComponent implements OnInit {
+  constructor(private horarrioService: HorariosService) {}
+  public barChartOptions = {
+    scaleShowVerticalLines: false,
     responsive: true,
-    scales: {
-      xAxes: [
-        {
-          ticks: {
-            min: 0,
-            max: 5,
-            callback: (value) => this.dia[value],
-          },
-        },
-      ],
-      yAxes: [
-        {
-          ticks: {
-            min: 0,
-            max: 5,
-            callback: (value) => this.times[value],
-          },
-        },
-      ],
-    },
   };
+  public fecha: Date = new Date();
+  public barChartLabels: any = [];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartData: any = [
+    { data: [], label: 'Yegor' },
+    { data: [], label: 'Jonathan' },
+    { data: [], label: 'Kendry' },
+  ];
+  ngOnInit() {
+    this.mostrartrabajosMensuales();
+  }
 
-  @Input('data') bubbleChartData: ChartDataSets[] = [];
-
-  public bubbleChartLegend = true;
+  mostrartrabajosMensuales() {
+    this.horarrioService.get_data_horario().subscribe((resp: any) => {
+      const { jhonatan, yegor, kendry } = resp.emepleados;
+      this.barChartLabels.push('Trabajadores');
+      this.barChartData[0].data.push(yegor);
+      this.barChartData[1].data.push(jhonatan);
+      this.barChartData[2].data.push(kendry);
+    });
+  }
 }
