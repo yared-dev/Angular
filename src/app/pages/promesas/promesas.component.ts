@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChartType } from 'chart.js';
+import { HorariosService } from 'src/app/services/horarios.service';
 
 @Component({
   selector: 'app-promesas',
@@ -7,19 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styles: [],
 })
 export class PromesasComponent implements OnInit {
-  public calendarForm: FormGroup = new FormGroup({
-    date: new FormControl('', [Validators.required]),
-  });
-  constructor() {}
+  constructor(private horarrioService: HorariosService) {}
 
   ngOnInit(): void {}
-  getDate() {
-    var data = new Date();
-    var year = data.toLocaleDateString();
-    var hora =
-      data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds();
-    console.log(data);
-    console.log(year);
-    console.log(hora);
-  }
+  getDate() {}
 }

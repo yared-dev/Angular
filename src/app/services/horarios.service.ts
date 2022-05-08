@@ -22,7 +22,7 @@ export class HorariosService {
     return localStorage.getItem('token') || '';
   }
   get uid() {
-    return this.usuario?.uid;
+    return this.usuario?.id;
   }
   get headers() {
     return {
@@ -32,9 +32,10 @@ export class HorariosService {
     };
   }
   enviarHoraEntrada(tipo_asistencia: string = '') {
+    console.log(this.uid);
     return this.http.post(
       `${base_url}/horarios`,
-      { id: this.uid, tipo_asistencia },
+      { id: this.uid, tipo_asistencia: tipo_asistencia },
       this.headers
     );
   }

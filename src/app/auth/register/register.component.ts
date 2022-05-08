@@ -37,10 +37,7 @@ export class RegisterComponent implements OnInit {
       validators: ValidarpassDirective,
     }
   );
-  constructor(
-    private userService: UsuariosService,
-    private router: Router
-  ) {}
+  constructor(private userService: UsuariosService, private router: Router) {}
 
   crearUsuario() {
     this.formSubmitted = true;

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
       Validators.required,
       Validators.email,
     ]),
-    password: new FormControl('123456', [Validators.required]),
+    password: new FormControl('1234', [Validators.required]),
     remember: new FormControl('false'),
   });
 

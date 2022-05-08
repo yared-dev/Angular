@@ -30,8 +30,8 @@ export class UsuariosService {
     const resp = this.usuario?.role || undefined;
     return resp;
   }
-  get uid() {
-    return this.usuario?.uid;
+  get id() {
+    return this.usuario?.id;
   }
   get headers() {
     return {
@@ -49,8 +49,9 @@ export class UsuariosService {
       })
       .pipe(
         map((resp: any) => {
-          const { email, google, nombre, role, _id, img = '' } = resp.usuarioDB;
-          this.usuario = new Usuario(nombre, email, '', img, google, role, _id);
+          const { email, name, role, iduser, img = '' } = resp.usuarioDB;
+          this.usuario = new Usuario(name, email, '', img, role, iduser);
+          console.log(this.usuario);
           localStorage.setItem('token', resp.token);
           return true;
         }),
@@ -62,11 +63,7 @@ export class UsuariosService {
   }
   actualizarUsuario(data: { email: string; nombre: string; role: string }) {
     data = { ...data, role: this.usuario?.role || '' };
-    return this.http.put(
-      `${base_url}/usuarios/${this.uid}`,
-      data,
-      this.headers
-    );
+    return this.http.put(`${base_url}/usuarios/${this.id}`, data, this.headers);
   }
   loginUsuario(formData: loginForm) {
     return this.http.post(`${base_url}/login`, formData).pipe(
@@ -117,9 +114,8 @@ export class UsuariosService {
               user.email,
               '',
               user.img,
-              user.google,
               user.role,
-              user._id
+              user.id
             );
           });
           return { total: resp.total, usuarios };
@@ -128,14 +124,11 @@ export class UsuariosService {
   }
   eliminarUsuario(usuario: Usuario) {
     console.log('eliminado');
-    return this.http.delete(
-      `${base_url}/usuarios/${usuario.uid}`,
-      this.headers
-    );
+    return this.http.delete(`${base_url}/usuarios/${usuario.id}`, this.headers);
   }
   guardarUsuario(usuario: Usuario) {
     return this.http.put(
-      `${base_url}/usuarios/${usuario.uid}`,
+      `${base_url}/usuarios/${usuario.id}`,
       usuario,
       this.headers
     );

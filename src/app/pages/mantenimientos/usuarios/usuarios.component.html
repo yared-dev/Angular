@@ -52,7 +52,7 @@
                     (click)="abrirModal(item)"
                   />
                 </td>
-                <td>{{ item.nombre }}</td>
+                <td>{{ item.name }}</td>
                 <td>{{ item.email }}</td>
                 <td>
                   <select
@@ -64,14 +64,14 @@
                     <option value="USER_ROLE">User</option>
                   </select>
                 </td>
-                <td>
+                <!-- <td>
                   <span *ngIf="item.google" class="label label-danger"
                     >google</span
                   >
                   <span *ngIf="!item.google" class="label label-info"
                     >email</span
                   >
-                </td>
+                </td> -->
                 <td class="text-nowrap text-center">
                   <a
                     class="cursor"

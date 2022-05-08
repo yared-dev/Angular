@@ -25,7 +25,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.perfilForm = new FormGroup({
-      nombre: new FormControl(this.usuario?.nombre, [Validators.required]),
+      nombre: new FormControl(this.usuario?.name, [Validators.required]),
       email: new FormControl(this.usuario?.email, [
         Validators.required,
         Validators.email,
@@ -37,7 +37,7 @@ export class PerfilComponent implements OnInit {
     this.usuarioService.actualizarUsuario(this.perfilForm?.value).subscribe(
       () => {
         const { nombre, email } = this.perfilForm?.value;
-        this.usuario!.nombre = nombre;
+        this.usuario!.name = nombre;
         this.usuario!.email = email;
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
       },
@@ -60,7 +60,7 @@ export class PerfilComponent implements OnInit {
   }
   subirImagen() {
     this.fileUploadServices
-      .actualizarFoto(this.imagenSubir, 'usuarios', this.usuario?.uid)
+      .actualizarFoto(this.imagenSubir, 'usuarios', this.usuario?.id)
       .then((res) => {
         this.usuario!.img = res;
         Swal.fire('Guardado', 'Imagen Actualizada', 'success');

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Trabajo } from 'src/app/models/trabajo.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { TrabajosService } from 'src/app/services/trabajos.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +19,8 @@ export class DashboardComponent {
   public totalTrabajos: number = 0;
   constructor(
     private busquedaService: BusquedasService,
-    private trabajoServices: TrabajosService
+    private trabajoServices: TrabajosService,
+    private usuarioServices: UsuariosService
   ) {}
 
   ngOnInit(): void {
@@ -81,22 +83,24 @@ export class DashboardComponent {
       },
     });
     if (value.length > 0) {
-      const nombre = value[0];
-      const modelo = value[1].toString();
-      const telefono = parseInt(value[2]);
-      const precio = parseInt(value[3]);
+      const name = value[0];
+      const model = value[1].toString();
+      const phone_number = parseInt(value[2]);
+      const price = parseInt(value[3]);
       const description = value[4].toString();
-      const urgencia = value[5].toString();
-      const estado = false;
+      const priority = value[5].toString();
+      const estate = false;
+      const iduser = this.usuarioServices.id;
       this.trabajoServices
         .crearTarabjo({
-          nombre,
-          modelo,
-          telefono,
-          precio,
+          name,
+          model,
+          phone_number,
+          price,
           description,
-          urgencia,
-          estado,
+          priority,
+          estate,
+          iduser,
         })
         .subscribe((resp) => {
           this.cargarTrabajo();
@@ -104,23 +108,22 @@ export class DashboardComponent {
     }
   }
   check(trabajo: Trabajo) {
-    console.log(trabajo);
-    // this.trabajoServices.actualizarTrabajo(trabajo).subscribe((resp: any) => {
-    //   const Toast = Swal.mixin({
-    //     toast: true,
-    //     position: 'top-end',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //     didOpen: (toast) => {
-    //       toast.addEventListener('mouseenter', Swal.stopTimer);
-    //       toast.addEventListener('mouseleave', Swal.resumeTimer);
-    //     },
-    //   });
-    //   Toast.fire({
-    //     icon: 'success',
-    //     title: resp.ok + ' Actualizado',
-    //   });
-    // });
+    trabajo.estado = true;
+    this.trabajoServices.actualizarTrabajo(trabajo).subscribe((resp: any) => {
+      const Toast = Swal.mixin({
+        toast: true,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: 'success',
+        title: resp.ok + ' Actualizado',
+      });
+    });
   }
 }

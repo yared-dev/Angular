@@ -1,4 +1,19 @@
 <div>
+  <label style="margin-right: 0.3rem">desde :</label>
+  <input
+    [ngModel]="desde | date: 'yyyy-MM-dd':'UTC'"
+    style="margin-right: 0.4rem"
+    type="date"
+    (change)="getEmpleadoTrabajo()"
+    (ngModelChange)="desde = $event"
+  />
+  <label style="margin-right: 0.3rem">hasta :</label>
+  <input
+    [ngModel]="hasta | date: 'yyyy-MM-dd':'UTC'"
+    type="date"
+    (change)="getEmpleadoTrabajo()"
+    (ngModelChange)="hasta = $event"
+  />
   <div style="display: block">
     <h2>Trabajos mensuales por Trabajador</h2>
     <span>{{ fecha | date: "shortDate" }}</span>

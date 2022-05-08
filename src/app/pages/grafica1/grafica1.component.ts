@@ -29,24 +29,15 @@ export class Grafica1Component implements OnInit {
   public colors3 = [{ backgroundColor: ['#6857e4', 'black'] }];
   // fin de compras
   constructor(
-    private trabajoService: TrabajosService,
     private productoService: ProductosService,
     private horariosService: HorariosService
   ) {}
 
   ngOnInit(): void {
-    this.getEmpleadoTrabajo();
     this.getProductoStock();
     this.getHorariosSemanal();
   }
-  getEmpleadoTrabajo() {
-    this.trabajoService.dataGrafico().subscribe((resp: any) => {
-      for (let clave in resp.a) {
-        this.label2.push(clave);
-        this.data2[0].push(resp.a[clave]);
-      }
-    });
-  }
+
   getProductoStock() {
     this.productoService.totalProductos().subscribe((resp: any) => {
       resp.total.forEach((productos: any) => {

@@ -72,7 +72,7 @@ export class ProductosComponent implements OnInit, OnDestroy {
       const precio = parseInt(value[1]);
       const cantidad = parseInt(value[2]);
       this.productoService
-        .crearProductos({ nombre, precio, cantidad })
+        .crearProductos({ name: nombre, price: precio, cant: cantidad })
         .subscribe((resp: any) => {
           this.cargarProductos();
           Swal.fire('Creado!', 'producto creado', 'success');

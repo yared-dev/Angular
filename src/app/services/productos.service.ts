@@ -28,10 +28,10 @@ export class ProductosService {
       map((resp) => {
         const productos = resp.producto.map((productos: any) => {
           return new Productos(
-            productos.nombre,
-            productos.precio,
-            productos.cantidad,
-            productos._id,
+            productos.name,
+            productos.price,
+            productos.cant,
+            productos.idproduct,
             productos.img
           );
         });
@@ -39,8 +39,7 @@ export class ProductosService {
       })
     );
   }
-  crearProductos(data: { nombre: string; precio: number; cantidad: number }) {
-    console.log(data);
+  crearProductos(data: { name: string; price: number; cant: number }) {
     const url = `${base_url}/productos`;
     return this.http.post(url, data, this.headers);
   }

@@ -27,15 +27,7 @@ export class BusquedasService {
   private transformarUsuarios(resultados: any[]): Usuario[] {
     return resultados.map(
       (user) =>
-        new Usuario(
-          user.nombre,
-          user.email,
-          '',
-          user.img,
-          user.google,
-          user.role,
-          user.uid
-        )
+        new Usuario(user.nombre, user.email, '', user.img, user.role, user.id)
     );
   }
   private transformarProductos(resultados: any[]): Productos[] {

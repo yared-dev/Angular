@@ -11,7 +11,7 @@ export interface TrabajoUserInterface {
 export class Trabajo {
   constructor(
     public estado: boolean,
-    public _id: string,
+    public id: string,
     public nombre: string,
     public modelo: string,
     public telefono: number,
@@ -22,7 +22,7 @@ export class Trabajo {
   ) {}
 
   get getUid() {
-    return this._id;
+    return this.id;
   }
 
   public set state(data: boolean) {

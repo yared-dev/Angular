@@ -20,7 +20,7 @@ export class TrabajosService {
     return localStorage.getItem('token') || '';
   }
   get uid() {
-    return this.trabajo?._id;
+    return this.trabajo?.id;
   }
   get headers() {
     return {
@@ -30,21 +30,20 @@ export class TrabajosService {
     };
   }
   cargarTrabajo(desde: number = 0, estado: boolean = false) {
-    const url = `${base_url}/trabajos?desde=${desde}&estado=${estado}`;
+    const url = `${base_url}/trabajos/${estado}`;
     return this.http.get<TrabajoUserInterface>(url, this.headers).pipe(
       delay(50),
       map((resp) => {
         const trabajos = resp.trabajo.map((trabajo: any) => {
-          console.log(trabajo);
           return new Trabajo(
-            trabajo.estado,
-            trabajo._id,
-            trabajo.nombre,
-            trabajo.modelo,
-            trabajo.telefono,
-            trabajo.precio,
+            trabajo.estate,
+            trabajo.idjobs,
+            trabajo.name,
+            trabajo.model,
+            trabajo.phone_number,
+            trabajo.price,
             trabajo.description,
-            trabajo.urgencia,
+            trabajo.priority,
             trabajo.date
           );
         });
@@ -53,29 +52,34 @@ export class TrabajosService {
     );
   }
   crearTarabjo(data: {
-    nombre: string;
-    modelo: string;
-    telefono: number;
-    precio: number;
+    name: string;
+    model: string;
+    phone_number: number;
+    price: number;
     description: string;
-    urgencia: string;
-    estado: false;
+    priority: string;
+    estate: false;
+    iduser?: string;
   }) {
-    return this.http.post(`${base_url}/trabajo`, data, this.headers);
+    return this.http.post(`${base_url}/trabajos`, data, this.headers);
   }
   actualizarTrabajo(trabajo: Trabajo) {
-    return this.http.put(`${base_url}/trabajos/${this.uid}`, trabajo, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+    return this.http.put(
+      `${base_url}/trabajos/${trabajo.id}`,
+      trabajo,
+      this.headers
+    );
   }
   borrarTrabajo(trabajo: Trabajo) {
-    const url = `${base_url}/trabajos/${trabajo._id}`;
+    const url = `${base_url}/trabajos/${trabajo.id}`;
     return this.http.delete(url, this.headers);
   }
-  dataGrafico(): any {
+  dataGrafico(desde: string, hasta: string): any {
+    var data = {
+      desde,
+      hasta,
+    };
     const url = `${base_url}/graficos`;
-    return this.http.get(url);
+    return this.http.post(url, data, this.headers);
   }
 }

@@ -3,13 +3,12 @@ import { environment } from 'src/environments/environment';
 const api_url = environment.base_url;
 export class Usuario {
   constructor(
-    public nombre?: string,
+    public name?: string,
     public email?: string,
     public password?: string,
     public img?: string,
-    public google?: string,
     public role?: string,
-    public uid?: string
+    public id?: string
   ) {}
 
   get getImg() {
@@ -25,7 +24,7 @@ export class Usuario {
   }
 
   get getName() {
-    return this.nombre;
+    return this.name;
   }
   get getEmail() {
     return this.email;
