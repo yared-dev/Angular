@@ -9,17 +9,17 @@ export interface ProductoInterface {
 const api_url = environment.base_url;
 export class Productos {
   constructor(
-    public nombre: string,
-    public precio: number,
-    public cantidad: number,
-    public _id: string,
+    public name: string,
+    public price: number,
+    public cant: number,
+    public idproduct: string,
     public img: string
   ) {}
 
   get getNombre() {
-    return this.nombre;
+    return this.name;
   }
   get getPrecio() {
-    return this.precio;
+    return this.price;
   }
 }

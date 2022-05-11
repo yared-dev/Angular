@@ -124,6 +124,7 @@ export class DashboardComponent {
         icon: 'success',
         title: resp.ok + ' Actualizado',
       });
+      this.cargarTrabajo();
     });
   }
 }

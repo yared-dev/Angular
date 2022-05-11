@@ -46,6 +46,7 @@ const routes: Routes = [
       },
       {
         path: 'promesas',
+        canActivate: [AdminGuard],
         component: PromesasComponent,
         data: { titulo: 'promesas' },
       },

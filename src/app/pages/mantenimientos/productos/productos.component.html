@@ -49,7 +49,7 @@
                 <td class="text-center">
                   <img
                     [src]="producto.img | imagen: 'productos'"
-                    [alt]="producto.nombre"
+                    [alt]="producto.name"
                     class="avatar cursor"
                     (click)="abrirModal(producto)"
                   />
@@ -59,7 +59,7 @@
                     class="form-control"
                     type="text"
                     placeholder="buscar..."
-                    [(ngModel)]="producto.nombre"
+                    [(ngModel)]="producto.name"
                   />
                 </td>
                 <td>
@@ -67,7 +67,7 @@
                     class="form-control"
                     type="text"
                     placeholder="buscar..."
-                    [(ngModel)]="producto.precio"
+                    [(ngModel)]="producto.price"
                   />
                 </td>
                 <td>
@@ -75,7 +75,7 @@
                     class="form-control"
                     type="text"
                     placeholder="buscar..."
-                    [(ngModel)]="producto.cantidad"
+                    [(ngModel)]="producto.cant"
                   />
                 </td>
                 <td class="text-nowrap">

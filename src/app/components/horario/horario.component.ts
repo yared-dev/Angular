@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
-import { HorariosService } from 'src/app/services/horarios.service';
 import { TrabajosService } from 'src/app/services/trabajos.service';
 
 @Component({
@@ -56,7 +55,6 @@ export class HorarioComponent implements OnInit {
         };
         this.barChartData.push(data);
       }
-      console.log(this.barChartData);
     });
   }
 }

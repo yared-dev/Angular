@@ -49,9 +49,9 @@ export class UsuariosService {
       })
       .pipe(
         map((resp: any) => {
-          const { email, name, role, iduser, img = '' } = resp.usuarioDB;
-          this.usuario = new Usuario(name, email, '', img, role, iduser);
-          console.log(this.usuario);
+          console.log(resp.usuarioDB);
+          const { email, name, role, id_user, img } = resp.usuarioDB;
+          this.usuario = new Usuario(name, email, '', img, role, id_user);
           localStorage.setItem('token', resp.token);
           return true;
         }),
@@ -109,13 +109,14 @@ export class UsuariosService {
         delay(500),
         map((resp) => {
           const usuarios = resp.usuarios.map((user: any) => {
+            console.log('user', user);
             return new Usuario(
-              user.nombre,
+              user.name,
               user.email,
               '',
               user.img,
               user.role,
-              user.id
+              user.id_user
             );
           });
           return { total: resp.total, usuarios };

@@ -43,15 +43,12 @@ export class ProductosService {
     const url = `${base_url}/productos`;
     return this.http.post(url, data, this.headers);
   }
-  actualizarProductos(
-    _id: string,
-    data: { nombre: string; precio: number; cantidad: number }
-  ) {
-    const url = `${base_url}/productos/${_id}`;
+  actualizarProductos(data: Productos) {
+    const url = `${base_url}/productos/${data.idproduct}`;
     return this.http.put(url, data, this.headers);
   }
-  borrarProductos(_id: string) {
-    const url = `${base_url}/productos/${_id}`;
+  borrarProductos(idproduct: string) {
+    const url = `${base_url}/productos/${idproduct}`;
     return this.http.delete(url, this.headers);
   }
   totalProductos() {

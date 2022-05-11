@@ -43,4 +43,8 @@ export class HorariosService {
     const url = `${base_url}/graficos/horario`;
     return this.http.get(url, this.headers);
   }
+  getHorasTrabajadas() {
+    const url = `${base_url}/horarios`;
+    return this.http.get(url, this.headers);
+  }
 }

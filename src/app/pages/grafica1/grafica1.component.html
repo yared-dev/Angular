@@ -1,28 +1,32 @@
 <div class="row">
-  <!-- <div class="col-6">
-    <app-dona
-      title="Compras"
-      [label]="label1"
-      [data]="data1"
-      [colors]="colors1"
-    ></app-dona>
-  </div> -->
   <div class="col-6">
-    <!-- <app-dona
-      title="Empleados"
-      [label]="label2"
-      [data]="data2"
-      [colors]="colors2"
-    ></app-dona> -->
     <app-horario></app-horario>
   </div>
   <div class="col-6">
-    <app-dona
-      title="Productos Stock"
-      [label]="label3"
-      [data]="data3"
-      [colors]="colors3"
-    ></app-dona>
+    <div style="display: block">
+      <h2>Horas trabjadas</h2>
+      <span>{{ fecha | date: "shortDate" }}</span>
+      <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+      >
+      </canvas>
+    </div>
   </div>
-  <div class="col-6"></div>
+  <div class="col-6">
+    <div style="display: block">
+      <h2>Pago por Horas Trabajadas</h2>
+      <span>{{ fecha | date: "shortDate" }}</span>
+      <ul>
+        <li *ngFor="let item of empleados">
+          <p>{{ item.nombre }}</p>
+          <p>{{ item.pago }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

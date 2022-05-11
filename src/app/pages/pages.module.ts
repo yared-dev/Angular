@@ -19,6 +19,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { TrabajosComponent } from './mantenimientos/trabajos/trabajos.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ProductosComponent } from './mantenimientos/productos/productos.compone
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    ChartsModule,
     RouterModule,
     ComponentsModule,
     PipesModule,

@@ -49,7 +49,11 @@ export class ProductosComponent implements OnInit, OnDestroy {
       });
   }
   abrirModal(producto: Productos) {
-    this.modalImgServices.abrirModal('productos', producto._id, producto.img);
+    this.modalImgServices.abrirModal(
+      'productos',
+      producto.idproduct,
+      producto.img
+    );
   }
   async abrirAlertCrearProducto() {
     const { value = '' } = await Swal.fire<string[]>({
@@ -101,7 +105,7 @@ export class ProductosComponent implements OnInit, OnDestroy {
   }
   borrarProducto(producto: Productos) {
     this.productoService
-      .borrarProductos(producto._id)
+      .borrarProductos(producto.idproduct)
       .subscribe((resp: any) => {
         const { msg } = resp;
         this.cargarProductos();
@@ -109,10 +113,8 @@ export class ProductosComponent implements OnInit, OnDestroy {
       });
   }
   editarProducto(producto: Productos) {
-    const { _id, nombre, precio, cantidad } = producto;
-    const data = { nombre, precio, cantidad };
     this.productoService
-      .actualizarProductos(_id, data)
+      .actualizarProductos(producto)
       .subscribe((resp: any) => {
         console.log(resp);
         Swal.fire('Creado!', 'producto actualizado', 'success');

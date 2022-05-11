@@ -32,8 +32,8 @@ export class RxjsComponent implements OnDestroy, OnInit {
   }
   enviarHoraEntrada() {
     var fechaActual = new Date();
-    var horaEntrada = new Date(`${fechaActual.toDateString()} 12:00:00`);
-    var horaSalida = new Date(`${fechaActual.toDateString()} 21:00:00`);
+    var horaEntrada = new Date(`${fechaActual.toDateString()} 14:00:00`);
+    var horaSalida = new Date(`${fechaActual.toDateString()} 20:00:00`);
     var tipo_asistencia = '';
 
     if (fechaActual < horaEntrada) {
@@ -54,11 +54,11 @@ export class RxjsComponent implements OnDestroy, OnInit {
         timer: 800,
       });
       tipo_asistencia = 'S ';
-    } else {
+    } else if (fechaActual > horaEntrada) {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'ERES BASURA MUY TARDE SALES',
+        title: 'Dia no laburado',
         showConfirmButton: false,
         timer: 800,
       });
