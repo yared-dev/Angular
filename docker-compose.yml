@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: angular
+    build: .
+    ports:
+      - "4200:4200"
+    # environment:
+    #   - PGDATABASE=appledb
+    #   - PGUSER=yared
+    #   - PGPASSWORD=1234
+    #   - PGHOST=postgresql
+    # links:
+    #  - postgresql
+    volumes:
+      - .:/usr/src/app
