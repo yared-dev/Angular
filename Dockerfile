@@ -6,7 +6,8 @@ WORKDIR  /usr/src/app
 
 COPY package.json package-lock*.json ./
 
-RUN npm install --verbose
+RUN npm install @angular/cli@12.2.3
+RUN npm install 
 
 COPY . .
 

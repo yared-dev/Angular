@@ -5,7 +5,7 @@ services:
     container_name: angular
     build: .
     ports:
-      - "4200:80"
+      - "4100:80"
     # environment:
     #   - PGDATABASE=appledb
     #   - PGUSER=yared
