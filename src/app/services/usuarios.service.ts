@@ -21,7 +21,7 @@ export class UsuariosService {
     private router: Router,
     private ngZone: NgZone
   ) {
-    this.googleInit();
+    // this.googleInit();
   }
   get token() {
     return localStorage.getItem('token') || '';
@@ -95,11 +95,11 @@ export class UsuariosService {
   }
   logout() {
     localStorage.removeItem('token');
-    this.auth2.signOut().then(() => {
-      this.ngZone.run(() => {
-        this.router.navigateByUrl('/login');
-      });
-    });
+    this.router.navigateByUrl('/login');
+    // this.auth2.signOut().then(() => {
+    //   this.ngZone.run(() => {
+    //   });
+    // });
   }
   cargarUsuarios(desde: number = 0) {
     const url = `${base_url}/usuarios?desde=${desde}`;

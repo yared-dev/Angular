@@ -1,18 +1,26 @@
-version: "3.8"
+# version: "3.8"
+
+# services:
+#   web:
+#     container_name: angular
+#     build: .
+#     ports:
+#       - "4100:80"
+#     # environment:
+#     #   - PGDATABASE=appledb
+#     #   - PGUSER=yared
+#     #   - PGPASSWORD=1234
+#     #   - PGHOST=postgresql
+#     # links:
+#     #  - postgresql
+#     # docker build -t adminpro .
+#     volumes:
+#       - .:/usr/src/adminpro
+version: '3.8'
 
 services:
-  web:
-    container_name: angular
+  angular-nginx-docker:
+    image: angular-nginx-docker
     build: .
     ports:
-      - "4100:80"
-    # environment:
-    #   - PGDATABASE=appledb
-    #   - PGUSER=yared
-    #   - PGPASSWORD=1234
-    #   - PGHOST=postgresql
-    # links:
-    #  - postgresql
-    # docker build -t adminpro .
-    volumes:
-      - .:/usr/src/adminpro
+      - 3100:80

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     private ngZone: NgZone
   ) {}
   ngOnInit(): void {
-    this.renderButton();
+    // this.renderButton();
   }
 
   login() {
