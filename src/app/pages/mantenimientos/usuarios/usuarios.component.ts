@@ -39,7 +39,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.usuarioServices
       .cargarUsuarios(this.paginaDesde)
       .subscribe(({ total, usuarios }) => {
-        console.log(usuarios);
         this.totalUsuarios = total;
         this.usuarios = usuarios;
         this.usuariosTemp = usuarios;

@@ -49,7 +49,6 @@ export class UsuariosService {
       })
       .pipe(
         map((resp: any) => {
-          console.log(resp.usuarioDB);
           const { email, name, role, id_user, img } = resp.usuarioDB;
           this.usuario = new Usuario(name, email, '', img, role, id_user);
           localStorage.setItem('token', resp.token);
@@ -61,7 +60,7 @@ export class UsuariosService {
   crearUsuario(formData: registerForm) {
     return this.http.post(`${base_url}/usuarios`, formData);
   }
-  actualizarUsuario(data: { email: string; nombre: string; role: string }) {
+  actualizarUsuario(data: { email: string; name: string; role: string }) {
     data = { ...data, role: this.usuario?.role || '' };
     return this.http.put(`${base_url}/usuarios/${this.id}`, data, this.headers);
   }
@@ -109,7 +108,6 @@ export class UsuariosService {
         delay(500),
         map((resp) => {
           const usuarios = resp.usuarios.map((user: any) => {
-            console.log('user', user);
             return new Usuario(
               user.name,
               user.email,

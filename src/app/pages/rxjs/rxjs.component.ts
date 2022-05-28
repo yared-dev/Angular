@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-rxjs',
   templateUrl: './rxjs.component.html',
-  styles: [],
+  styleUrls: ['./rxjs.component.css'],
 })
 export class RxjsComponent implements OnDestroy, OnInit {
   public isDate: Boolean;
@@ -24,7 +24,7 @@ export class RxjsComponent implements OnDestroy, OnInit {
     const d = new Date();
     let hour = d.getHours();
     //modificar la hora de entrada maxima
-    if (hour < 22) {
+    if (hour < 24) {
       this.isDate = true;
       return hour;
     }
@@ -42,7 +42,7 @@ export class RxjsComponent implements OnDestroy, OnInit {
         icon: 'success',
         title: 'Entrada',
         showConfirmButton: false,
-        timer: 800,
+        timer: 2000,
       });
       tipo_asistencia = 'E';
     } else if (fechaActual > horaEntrada && fechaActual < horaSalida) {
@@ -51,16 +51,16 @@ export class RxjsComponent implements OnDestroy, OnInit {
         icon: 'success',
         title: 'Salida',
         showConfirmButton: false,
-        timer: 800,
+        timer: 2000,
       });
-      tipo_asistencia = 'S ';
+      tipo_asistencia = 'S';
     } else if (fechaActual > horaEntrada) {
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Dia no laburado',
         showConfirmButton: false,
-        timer: 800,
+        timer: 2000,
       });
       tipo_asistencia = 'V';
     }

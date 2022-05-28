@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("entro cada Raot")
     this.usuario = this.usuarioService.usuario;
   }
 }

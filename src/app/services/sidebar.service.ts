@@ -13,18 +13,18 @@ export class SidebarService {
           title: 'trabajos',
           url: '/',
         },
-        {
-          title: 'Meta del Mes',
-          url: 'progress',
-        },
+        // {
+        //   title: 'Meta del Mes',
+        //   url: 'progress',
+        // },
         {
           title: 'Grafica de Trabajos',
           url: 'grafica1',
         },
-        {
-          title: 'Horas trabajadas',
-          url: 'promesas',
-        },
+        // {
+        //   title: 'Horas trabajadas',
+        //   url: 'promesas',
+        // },
         {
           title: 'Marcar Asistencia',
           url: 'rxjs',

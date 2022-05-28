@@ -1,7 +1,16 @@
-<button
-  *ngIf="isDate"
-  class="btn btn-info btn-lg text-uppercase btn-rounded"
-  (click)="enviarHoraEntrada()"
->
-  Registrame
-</button>
+<div class="text-center">
+  <div class="flex">
+    <div>
+      <ul>
+        <li>Horario de Entrada: <p><strong>09:00:00 am - 14:00:00 pm</strong></p></li>
+        <li>Horario de Salida: <p><strong>14:00:00 pm - 22:00:00 pm</strong></p></li>
+        <li>Dia no Laburado: <p><strong>Si no llegas a la hora de Entrada Maxima</strong></p></li>
+      </ul>
+    </div>
+    <div>
+      <button *ngIf="isDate" class="btn btn-info btn-lg text-uppercase btn-rounded" (click)="enviarHoraEntrada()">
+        Registrame
+      </button>
+    </div>
+  </div>
+</div>

@@ -33,9 +33,17 @@ export class HorariosService {
   }
   enviarHoraEntrada(tipo_asistencia: string = '') {
     console.log(this.uid);
+    let dt = new Date();
+    var fecha_hora = this.formatDate(dt);
+    var hora = dt.getHours();
+    var minutos = dt.getMinutes();
+    var segundos = dt.getSeconds();
+    var date = fecha_hora + " " + hora + ":" + minutos + ":" + segundos;
+
+    console.log(date)
     return this.http.post(
       `${base_url}/horarios`,
-      { id: this.uid, tipo_asistencia: tipo_asistencia },
+      { id: this.uid, tipo_asistencia: tipo_asistencia ,getDate:date},
       this.headers
     );
   }
@@ -46,5 +54,16 @@ export class HorariosService {
   getHorasTrabajadas() {
     const url = `${base_url}/horarios`;
     return this.http.get(url, this.headers);
+  }
+   formatDate(date:Date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+  
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+  
+    return [year, month,day].join("-");
   }
 }

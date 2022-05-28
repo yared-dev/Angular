@@ -25,7 +25,7 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.perfilForm = new FormGroup({
-      nombre: new FormControl(this.usuario?.name, [Validators.required]),
+      name: new FormControl(this.usuario?.name, [Validators.required]),
       email: new FormControl(this.usuario?.email, [
         Validators.required,
         Validators.email,
@@ -36,8 +36,8 @@ export class PerfilComponent implements OnInit {
   actualizarPerfil() {
     this.usuarioService.actualizarUsuario(this.perfilForm?.value).subscribe(
       () => {
-        const { nombre, email } = this.perfilForm?.value;
-        this.usuario!.name = nombre;
+        const { name, email } = this.perfilForm?.value;
+        this.usuario!.name = name;
         this.usuario!.email = email;
         Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
       },

@@ -43,9 +43,9 @@
                 <th>Telefono</th>
                 <th>Precio</th>
                 <th>Descripcion</th>
-                <th class="w100">Urgencia</th>
+                <th >Hora Entrega</th>
                 <th class="w100">estado</th>
-                <th class="w100 text-center">Fecha</th>
+                <th class="text-center">Fecha</th>
               </tr>
             </thead>
             <tbody style="color: rgb(67, 39, 157)">
@@ -82,7 +82,7 @@
                   {{ trabajo.estado }}
                 </td>
                 <td>
-                  {{ trabajo.date | date: "shortDate" }}
+                  {{ trabajo.date | date: "short" }}
                 </td>
               </tr>
             </tbody>

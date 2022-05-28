@@ -32,7 +32,6 @@ export class DashboardComponent {
     this.trabajoServices
       .cargarTrabajo(this.paginaDesde, false)
       .subscribe(({ total, trabajos }) => {
-        console.log(trabajos);
         this.cargando = false;
         this.trabajo = trabajos;
         this.totalTrabajos = total;
@@ -69,7 +68,7 @@ export class DashboardComponent {
         '<div>Telefono:</div><input type="number" id="swal-input3" class="swal2-input mb-2">' +
         '<div>Precio:</div><input type="number" id="swal-input4" class="swal2-input mb-2">' +
         '<div>Descripcion:</div><input type="text" id="swal-input5" class="swal2-input mb-2">' +
-        '<div>Urgencia:</div><input type="text" id="swal-input6" class="swal2-input mb-2">',
+        '<div>Hora Entrega:</div><input type="time" id="swal-input6" class="swal2-input mb-2">',
       showCancelButton: true,
       preConfirm: () => {
         return [
