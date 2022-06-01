@@ -82,4 +82,8 @@ export class TrabajosService {
     const url = `${base_url}/graficos`;
     return this.http.post(url, data, this.headers);
   }
+  getTrabajoUser(iduser : number){
+    const url = `${base_url}/trabajos/usuario`;
+    return this.http.post(url,{iduser}, this.headers);
+  }
 }
