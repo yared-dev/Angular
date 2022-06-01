@@ -21,10 +21,10 @@ export class SidebarService {
           title: 'Grafica de Trabajos',
           url: 'grafica1',
         },
-        // {
-        //   title: 'Horas trabajadas',
-        //   url: 'promesas',
-        // },
+        {
+          title: 'Pagos Diario',
+          url: 'pagos',
+        },
         {
           title: 'Marcar Asistencia',
           url: 'rxjs',

@@ -45,10 +45,10 @@ const routes: Routes = [
         data: { titulo: 'accountSettings' },
       },
       {
-        path: 'promesas',
+        path: 'pagos',
         canActivate: [AdminGuard],
         component: PromesasComponent,
-        data: { titulo: 'promesas' },
+        data: { titulo: 'pagos' },
       },
       {
         path: 'rxjs',
