@@ -25,3 +25,5 @@ FROM nginx:alpine
 COPY ./dist/adminpro/. /usr/share/nginx/html
 
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+
+RUN nginx -t
