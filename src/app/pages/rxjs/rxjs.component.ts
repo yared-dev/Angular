@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-rxjs',
   templateUrl: './rxjs.component.html',
-  styleUrls: ['./rxjs.component.css'],
+  // styleUrls: ['./rxjs.component.css'],
 })
 export class RxjsComponent implements OnDestroy, OnInit {
   public isDate: Boolean;

@@ -18,20 +18,21 @@ export class PromesasComponent implements OnInit {
   public totalUsers: Usuario[] = [];
   public seleccionados: any = 1;
   public cantidad: number = 0;
-  public pagoUsuarios : PagoDiario[] = [];
-  public trabajoUsuarios : any[] = [];
-  public data : PagoDiario = {
-    iduser:0,
-    fecha:new Date(),
-    monto:0
+  public pagoUsuarios: PagoDiario[] = [];
+  public trabajoUsuarios: any[] = [];
+  public data: PagoDiario = {
+    iduser: 0,
+    fecha: new Date(),
+    monto: 0,
   };
   constructor(
     private usuarioServices: UsuariosService,
-    private pagos : PagoDiarioService,
+    private pagos: PagoDiarioService,
     private trabajoService: TrabajosService
   ) {}
   ngOnInit(): void {
-    this.getTotalUsers();this.getPagosByUser();
+    this.getTotalUsers();
+    this.getPagosByUser();
   }
 
   getTotalUsers() {
@@ -41,27 +42,31 @@ export class PromesasComponent implements OnInit {
     });
   }
   enviarPago() {
-    if ( this.cantidad == undefined || this.cantidad <= 0) {
-       Swal.fire('Error', 'El Monto debe ser mayor a 0', 'error');
-    }else{
+    if (this.cantidad == undefined || this.cantidad <= 0) {
+      Swal.fire('Error', 'El Monto debe ser mayor a 0', 'error');
+    } else {
       this.data.iduser = this.seleccionados;
       this.data.monto = this.cantidad;
-      this.pagos.enviarPago(this.data).subscribe((resp:Response) => {
-        console.log(resp)
-        if(resp.ok !== true ){
-            Swal.fire('Error', 'Pago no Realizado Hablar a Sistemas o Intentar otra vez', 'error');
+      this.pagos.enviarPago(this.data).subscribe((resp: any) => {
+        if (resp.ok !== true) {
+          Swal.fire(
+            'Error',
+            'Pago no Realizado Hablar a Sistemas o Intentar otra vez',
+            'error'
+          );
         }
-      })
+        this.getPagosByUser();
+      });
     }
   }
-  getPagosByUser(){
-    this.pagos.getPagosByUser(this.seleccionados).subscribe((resp:any) => {
-      this.pagoUsuarios =resp.pago
-      console.log(resp.pago)
-    })
-    this.trabajoService.getTrabajoUser(this.seleccionados).subscribe((res:any)=>{
-    console.log(res.trabajo)
-    this.trabajoUsuarios = res.trabajo
-    })
+  getPagosByUser() {
+    this.pagos.getPagosByUser(this.seleccionados).subscribe((resp: any) => {
+      this.pagoUsuarios = resp.pago;
+    });
+    this.trabajoService
+      .getTrabajoUser(this.seleccionados)
+      .subscribe((res: any) => {
+        this.trabajoUsuarios = res.trabajo;
+      });
   }
 }
