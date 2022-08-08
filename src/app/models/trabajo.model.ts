@@ -18,6 +18,8 @@ export class Trabajo {
     public precio: number,
     public description: string,
     public urgencia: string,
+    public empleado: string,
+    public iduser: number,
     public date?: string
   ) {}
 

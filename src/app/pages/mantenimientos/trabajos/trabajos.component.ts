@@ -15,6 +15,7 @@ export class TrabajosComponent implements OnInit {
   public paginaDesde: number = 0;
   public trabajoTemporal: Trabajo[] = [];
   public trabajo: Trabajo[] = [];
+  public usuarios: any;
   public totalTrabajos: number = 0;
   constructor(
     private busquedaService: BusquedasService,
@@ -23,12 +24,14 @@ export class TrabajosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.usuarioServices.cargarUsuarios().subscribe((resp) => {
+      this.usuarios = resp.usuarios;
+    });
     this.cargarTrabajo();
   }
 
   cargarTrabajo() {
     this.cargando = true;
-
     this.trabajoServices
       .cargarTrabajo(this.paginaDesde, true)
       .subscribe(({ total, trabajos }) => {
@@ -49,6 +52,11 @@ export class TrabajosComponent implements OnInit {
     }
   }
   async crearTrabajo() {
+    var options = '';
+    this.usuarios.forEach((element: any) => {
+      console.log(element.name);
+      options += `<option value="${element.id}">${element.name}</option>`;
+    });
     const { value = '' } = await Swal.fire<string[]>({
       title: 'Crea un nuevo Trabajo',
       html:
@@ -57,7 +65,8 @@ export class TrabajosComponent implements OnInit {
         '<div>Telefono:</div><input type="number" id="swal-input3" class="swal2-input mb-2">' +
         '<div>Precio:</div><input type="number" id="swal-input4" class="swal2-input mb-2">' +
         '<div>Descripcion:</div><input type="text" id="swal-input5" class="swal2-input mb-2">' +
-        '<div>Urgencia:</div><input type="text" id="swal-input6" class="swal2-input mb-2">',
+        '<div>Urgencia:</div><input type="text" id="swal-input6" class="swal2-input mb-2">' +
+        `<div>Trabajador:</div><select id="swal-input7" class="swal2-input mb-2">${options}</select>`,
       showCancelButton: true,
       preConfirm: () => {
         return [
@@ -67,6 +76,7 @@ export class TrabajosComponent implements OnInit {
           (<HTMLInputElement>document.getElementById('swal-input4')).value,
           (<HTMLInputElement>document.getElementById('swal-input5')).value,
           (<HTMLInputElement>document.getElementById('swal-input6')).value,
+          (<HTMLInputElement>document.getElementById('swal-input7')).value,
         ];
       },
     });
@@ -79,7 +89,7 @@ export class TrabajosComponent implements OnInit {
       const description = value[4].toString();
       const priority = value[5].toString();
       const estate = false;
-      const iduser = this.usuarioServices.id;
+      const iduser = value[6].toString();
       this.trabajoServices
         .crearTarabjo({
           name,

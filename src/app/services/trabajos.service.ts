@@ -35,6 +35,7 @@ export class TrabajosService {
       delay(50),
       map((resp) => {
         const trabajos = resp.trabajo.map((trabajo: any) => {
+          console.log(trabajo);
           return new Trabajo(
             trabajo.estate,
             trabajo.idjobs,
@@ -44,6 +45,8 @@ export class TrabajosService {
             trabajo.price,
             trabajo.description,
             trabajo.priority,
+            trabajo.empleado,
+            trabajo.id_user,
             trabajo.date
           );
         });
@@ -82,8 +85,8 @@ export class TrabajosService {
     const url = `${base_url}/graficos`;
     return this.http.post(url, data, this.headers);
   }
-  getTrabajoUser(iduser : number){
+  getTrabajoUser(iduser: number) {
     const url = `${base_url}/trabajos/usuario`;
-    return this.http.post(url,{iduser}, this.headers);
+    return this.http.post(url, { iduser }, this.headers);
   }
 }

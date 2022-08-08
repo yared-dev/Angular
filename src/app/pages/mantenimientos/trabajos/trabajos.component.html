@@ -2,13 +2,8 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Buscar Trabajo por Cliente..."
-          (keyup)="buscar(txtTerm.value)"
-          #txtTerm
-        />
+        <input type="text" class="form-control" placeholder="Buscar Trabajo por Cliente..."
+          (keyup)="buscar(txtTerm.value)" #txtTerm />
       </div>
     </div>
   </div>
@@ -44,6 +39,7 @@
                 <th>Precio</th>
                 <th>Descripcion</th>
                 <th class="w140">Hora Entrega</th>
+                <th class="w140">Empleado</th>
                 <th>estado</th>
                 <th class="w100 text-center">Fecha</th>
               </tr>
@@ -51,70 +47,35 @@
             <tbody style="color: black">
               <tr *ngFor="let trabajo of trabajo">
                 <td class="text-center">
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Borrar Trabajo"
-                    class="cursor"
-                    (click)="borrarTrabajo(trabajo)"
-                  >
+                  <a data-toggle="tooltip" data-original-title="Borrar Trabajo" class="cursor"
+                    (click)="borrarTrabajo(trabajo)">
                     <i class="fa fa-close text-danger m-r-10"></i>
                   </a>
-                  <a
-                    data-toggle="tooltip"
-                    data-original-title="Actualizar Trabajo"
-                    class="cursor"
-                    (click)="actualizarTrabajo(trabajo)"
-                  >
+                  <a data-toggle="tooltip" data-original-title="Actualizar Trabajo" class="cursor"
+                    (click)="actualizarTrabajo(trabajo)">
                     <i class="fa fa-pencil text-primary m-r-10"></i>
                   </a>
                 </td>
                 <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="buscar..."
-                    [(ngModel)]="trabajo.nombre"
-                  />
+                  <input class="form-control" type="text" placeholder="buscar..." [(ngModel)]="trabajo.nombre" />
                 </td>
                 <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="buscar..."
-                    [(ngModel)]="trabajo.modelo"
-                  />
+                  <input class="form-control" type="text" placeholder="buscar..." [(ngModel)]="trabajo.modelo" />
                 </td>
                 <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="buscar..."
-                    [(ngModel)]="trabajo.telefono"
-                  />
+                  <input class="form-control" type="text" placeholder="buscar..." [(ngModel)]="trabajo.telefono" />
                 </td>
                 <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="buscar..."
-                    [(ngModel)]="trabajo.precio"
-                  />
+                  <input class="form-control" type="text" placeholder="buscar..." [(ngModel)]="trabajo.precio" />
                 </td>
                 <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="buscar..."
-                    [(ngModel)]="trabajo.description"
-                  />
+                  <input class="form-control" type="text" placeholder="buscar..." [(ngModel)]="trabajo.description" />
                 </td>
                 <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="buscar..."
-                    [(ngModel)]="trabajo.urgencia"
-                  />
+                  <input class="form-control" type="text" placeholder="buscar..." [(ngModel)]="trabajo.urgencia" />
+                </td>
+                <td>
+                  {{trabajo.empleado}}
                 </td>
                 <td>
                   {{ trabajo.estado }}

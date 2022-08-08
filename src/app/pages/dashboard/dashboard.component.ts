@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Trabajo } from 'src/app/models/trabajo.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
+import { ProductosService } from 'src/app/services/productos.service';
 import { TrabajosService } from 'src/app/services/trabajos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
@@ -17,13 +18,22 @@ export class DashboardComponent {
   public trabajoTemporal: Trabajo[] = [];
   public trabajo: Trabajo[] = [];
   public totalTrabajos: number = 0;
+  public usuarios: any;
+  public productos: any;
   constructor(
     private busquedaService: BusquedasService,
     private trabajoServices: TrabajosService,
-    private usuarioServices: UsuariosService
+    private usuarioServices: UsuariosService,
+    private productoService: ProductosService
   ) {}
 
   ngOnInit(): void {
+    this.usuarioServices.cargarUsuarios().subscribe((resp) => {
+      this.usuarios = resp.usuarios;
+    });
+    this.productoService.cargarProductos().subscribe((resp: any) => {
+      this.productos = resp.productos;
+    });
     this.cargarTrabajo();
   }
 
@@ -60,6 +70,14 @@ export class DashboardComponent {
     this.cargarTrabajo();
   }
   async crearTrabajo() {
+    // var producto = '';
+    // this.productos.forEach((element: any) => {
+    //   producto += `<option value="${element.idproduct}">${element.name}</option>`;
+    // });
+    var options = '';
+    this.usuarios.forEach((element: any) => {
+      options += `<option value="${element.id}">${element.name}</option>`;
+    });
     const { value = '' } = await Swal.fire<string[]>({
       title: 'Crea un nuevo Trabajo',
       html:
@@ -68,7 +86,9 @@ export class DashboardComponent {
         '<div>Telefono:</div><input type="number" id="swal-input3" class="swal2-input mb-2">' +
         '<div>Precio:</div><input type="number" id="swal-input4" class="swal2-input mb-2">' +
         '<div>Descripcion:</div><input type="text" id="swal-input5" class="swal2-input mb-2">' +
-        '<div>Hora Entrega:</div><input type="time" id="swal-input6" class="swal2-input mb-2">',
+        '<div>Hora Entrega:</div><input type="time" id="swal-input6" class="swal2-input mb-2">' +
+        `<div>Trabajador:</div><select id="swal-input7" class="swal2-input mb-2">${options}</select>` /* +
+        `<div>Trabajador:</div><select id="swal-input8" class="swal2-input mb-2">${producto}</select>`,*/,
       showCancelButton: true,
       preConfirm: () => {
         return [
@@ -78,6 +98,8 @@ export class DashboardComponent {
           (<HTMLInputElement>document.getElementById('swal-input4')).value,
           (<HTMLInputElement>document.getElementById('swal-input5')).value,
           (<HTMLInputElement>document.getElementById('swal-input6')).value,
+          (<HTMLInputElement>document.getElementById('swal-input7')).value,
+          /*(<HTMLInputElement>document.getElementById('swal-input8')).value,*/
         ];
       },
     });
@@ -89,7 +111,8 @@ export class DashboardComponent {
       const description = value[4].toString();
       const priority = value[5].toString();
       const estate = false;
-      const iduser = this.usuarioServices.id;
+      const iduser = value[6].toString();
+      // const producto = value[7].toString();
       this.trabajoServices
         .crearTarabjo({
           name,

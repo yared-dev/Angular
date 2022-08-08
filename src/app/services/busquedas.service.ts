@@ -54,6 +54,8 @@ export class BusquedasService {
           trabajo.precio,
           trabajo.description,
           trabajo.urgencia,
+          trabajo.empleado,
+          trabajo.id_user,
           trabajo.date
         )
     );
