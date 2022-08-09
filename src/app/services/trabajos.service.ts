@@ -63,6 +63,7 @@ export class TrabajosService {
     priority: string;
     estate: false;
     iduser?: string;
+    idproducto: any;
   }) {
     return this.http.post(`${base_url}/trabajos`, data, this.headers);
   }

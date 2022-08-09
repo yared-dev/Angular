@@ -70,10 +70,11 @@ export class DashboardComponent {
     this.cargarTrabajo();
   }
   async crearTrabajo() {
-    // var producto = '';
-    // this.productos.forEach((element: any) => {
-    //   producto += `<option value="${element.idproduct}">${element.name}</option>`;
-    // });
+    var producto = '';
+    producto += `<option value="0">NINGUNO</option>`;
+    this.productos.forEach((element: any) => {
+      producto += `<option value="${element.idproduct}">${element.name}</option>`;
+    });
     var options = '';
     this.usuarios.forEach((element: any) => {
       options += `<option value="${element.id}">${element.name}</option>`;
@@ -87,8 +88,8 @@ export class DashboardComponent {
         '<div>Precio:</div><input type="number" id="swal-input4" class="swal2-input mb-2">' +
         '<div>Descripcion:</div><input type="text" id="swal-input5" class="swal2-input mb-2">' +
         '<div>Hora Entrega:</div><input type="time" id="swal-input6" class="swal2-input mb-2">' +
-        `<div>Trabajador:</div><select id="swal-input7" class="swal2-input mb-2">${options}</select>` /* +
-        `<div>Trabajador:</div><select id="swal-input8" class="swal2-input mb-2">${producto}</select>`,*/,
+        `<div>Trabajador:</div><select id="swal-input7" class="swal2-input mb-2">${options}</select>` +
+        `<div>PODUCTO:</div><select id="swal-input8" class="swal2-input mb-2">${producto}</select>`,
       showCancelButton: true,
       preConfirm: () => {
         return [
@@ -99,7 +100,7 @@ export class DashboardComponent {
           (<HTMLInputElement>document.getElementById('swal-input5')).value,
           (<HTMLInputElement>document.getElementById('swal-input6')).value,
           (<HTMLInputElement>document.getElementById('swal-input7')).value,
-          /*(<HTMLInputElement>document.getElementById('swal-input8')).value,*/
+          (<HTMLInputElement>document.getElementById('swal-input8')).value,
         ];
       },
     });
@@ -112,7 +113,10 @@ export class DashboardComponent {
       const priority = value[5].toString();
       const estate = false;
       const iduser = value[6].toString();
-      // const producto = value[7].toString();
+      var producto = value[7];
+      var productos = this.productos.filter((el: any) => {
+        return el.idproduct == producto;
+      });
       this.trabajoServices
         .crearTarabjo({
           name,
@@ -123,6 +127,7 @@ export class DashboardComponent {
           priority,
           estate,
           iduser,
+          idproducto: productos.length > 0 ? productos[0].idproduct : null,
         })
         .subscribe((resp) => {
           this.cargarTrabajo();

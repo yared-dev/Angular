@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { take, map, filter } from 'rxjs/operators';
-import { interval, Observable, Subscription } from 'rxjs';
+import { Usuario } from 'src/app/models/usuario.model';
 import { HorariosService } from 'src/app/services/horarios.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,12 @@ import Swal from 'sweetalert2';
 export class RxjsComponent implements OnDestroy, OnInit {
   public isDate: Boolean;
 
+  public totalUsers: Usuario[] = [];
+  public seleccionados: any = 1;
+  public cantidad: number = 0;
+  public trabajoUsuarios: any[] = [];
   constructor(
+    private usuarioServices: UsuariosService,
     private horariosService: HorariosService,
     private router: Router
   ) {
@@ -64,7 +69,11 @@ export class RxjsComponent implements OnDestroy, OnInit {
       });
       tipo_asistencia = 'V';
     }
-    this.horariosService.enviarHoraEntrada(tipo_asistencia).subscribe(
+    var data = {
+      tipo_asistencia,
+      idusers: this.seleccionados,
+    };
+    this.horariosService.enviarHoraEntrada(data).subscribe(
       (resp) => {
         setTimeout(() => {
           this.router.navigateByUrl('/');
@@ -76,8 +85,18 @@ export class RxjsComponent implements OnDestroy, OnInit {
       }
     );
   }
+  getTotalUsers() {
+    this.usuarioServices.cargarUsuarios().subscribe((res) => {
+      this.totalUsers = res.usuarios;
+      this.seleccionados = res.usuarios[0].id || undefined; //para inicializar el combo
+    });
+  }
+  getPagosByUser() {
+    this.seleccionados;
+  }
 
   ngOnInit(): void {
+    this.getTotalUsers();
     this.getDate();
   }
   ngOnDestroy(): void {}

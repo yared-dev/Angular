@@ -90,20 +90,20 @@ export class TrabajosComponent implements OnInit {
       const priority = value[5].toString();
       const estate = false;
       const iduser = value[6].toString();
-      this.trabajoServices
-        .crearTarabjo({
-          name,
-          model,
-          phone_number,
-          price,
-          description,
-          priority,
-          estate,
-          iduser,
-        })
-        .subscribe((resp) => {
-          this.cargarTrabajo();
-        });
+      // this.trabajoServices
+      //   .crearTarabjo({
+      //     name,
+      //     model,
+      //     phone_number,
+      //     price,
+      //     description,
+      //     priority,
+      //     estate,
+      //     iduser,
+      //   })
+      //   .subscribe((resp) => {
+      //     this.cargarTrabajo();
+      //   });
     }
   }
   cambiarPagina(valor: number) {
