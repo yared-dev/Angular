@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Productos } from 'src/app/models/productos.model';
 
 import { Trabajo } from 'src/app/models/trabajo.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
@@ -19,7 +20,7 @@ export class DashboardComponent {
   public trabajo: Trabajo[] = [];
   public totalTrabajos: number = 0;
   public usuarios: any;
-  public productos: any;
+  public productos: Productos[] = [];
   constructor(
     private busquedaService: BusquedasService,
     private trabajoServices: TrabajosService,
@@ -114,9 +115,17 @@ export class DashboardComponent {
       const estate = false;
       const iduser = value[6].toString();
       var producto = value[7];
-      var productos = this.productos.filter((el: any) => {
-        return el.idproduct == producto;
-      });
+        console.log(producto)
+
+      if(producto !== "0"){
+        var productos = this.productos.filter((el: any) => {
+          return el.idproduct == producto;
+        });
+        productos[0].cant -= 1;
+        this.productoService.actualizarProductos(productos[0]).subscribe(productos => {
+          console.log(productos)
+        })
+      }
       this.trabajoServices
         .crearTarabjo({
           name,
@@ -127,7 +136,7 @@ export class DashboardComponent {
           priority,
           estate,
           iduser,
-          idproducto: productos.length > 0 ? productos[0].idproduct : null,
+          idproduct: producto ? producto : null,
         })
         .subscribe((resp) => {
           this.cargarTrabajo();

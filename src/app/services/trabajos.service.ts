@@ -8,7 +8,6 @@ import { trabajosForm } from '../interfaces/trabajos-form.interfaces';
 import { Trabajo, TrabajoUserInterface } from '../models/trabajo.model';
 
 const base_url = environment.base_url;
-
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +34,7 @@ export class TrabajosService {
       delay(50),
       map((resp) => {
         const trabajos = resp.trabajo.map((trabajo: any) => {
-          console.log(trabajo);
+          console.table(trabajo);
           return new Trabajo(
             trabajo.estate,
             trabajo.idjobs,
@@ -47,6 +46,7 @@ export class TrabajosService {
             trabajo.priority,
             trabajo.empleado,
             trabajo.id_user,
+            trabajo.producto,
             trabajo.date
           );
         });
@@ -63,7 +63,7 @@ export class TrabajosService {
     priority: string;
     estate: false;
     iduser?: string;
-    idproducto: any;
+    idproduct: any;
   }) {
     return this.http.post(`${base_url}/trabajos`, data, this.headers);
   }

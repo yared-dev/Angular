@@ -20,6 +20,7 @@ export class Trabajo {
     public urgencia: string,
     public empleado: string,
     public iduser: number,
+    public producto: string,
     public date?: string
   ) {}
 
