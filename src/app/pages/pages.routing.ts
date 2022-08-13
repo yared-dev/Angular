@@ -7,7 +7,7 @@ import { PagesComponent } from './pages.component';
 import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+import { HorariosComponent } from './horarios/horario.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
 
@@ -52,7 +52,7 @@ const routes: Routes = [
       },
       {
         path: 'rxjs',
-        component: RxjsComponent,
+        component: HorariosComponent,
         data: { titulo: 'MARCAR ENTRADA' },
       },
       {

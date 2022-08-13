@@ -14,7 +14,7 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+import { HorariosComponent } from './horarios/horario.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { TrabajosComponent } from './mantenimientos/trabajos/trabajos.component';
@@ -29,7 +29,7 @@ import { ChartsModule } from 'ng2-charts';
     PagesComponent,
     AccountSettingsComponent,
     PromesasComponent,
-    RxjsComponent,
+    HorariosComponent,
     PerfilComponent,
     UsuariosComponent,
     TrabajosComponent,
