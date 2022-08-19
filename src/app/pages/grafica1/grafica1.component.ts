@@ -8,37 +8,6 @@ import { HorariosService } from 'src/app/services/horarios.service';
   styles: [],
 })
 export class Grafica1Component implements OnInit {
-  // // public label1: string[] = ['Pantallas', 'Repuestos', 'Microscopios'];
-  // // public data1 = [[350, 450, 100]];
-  // // public colors1 = [{ backgroundColor: ['#6857e6', '#009fee', '#f02059'] }];
-
-  // //empleados
-  // public label2: string[] = [];
-  // public data2: any = [[]];
-  // public colors2 = [
-  //   {
-  //     backgroundColor: ['#6857e5', '#009fea', '#f22056', '#f58356', '#f8166'],
-  //   },
-  // ];
-  // // fin de empleados
-  // // compras
-  // public label3: string[] = ['yared'];
-  // public data3: any = [[30]];
-  // public colors3 = [{ backgroundColor: ['#6857e4', 'black'] }];
-  // // fin de compras
-
-  // ngOnInit(): void {
-  //   this.getProductoStock();
-  // }
-
-  // getProductoStock() {
-  //   this.horariosService.getHorasTrabajadas().subscribe((resp: any) => {
-  //     resp.total.forEach((productos: any) => {
-  //       this.label3.push(productos._id.nombre);
-  //       this.data3[0].push(productos.totalPrice);
-  //     });
-  //   });
-  // }
   constructor(private horariosService: HorariosService) {}
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -64,14 +33,13 @@ export class Grafica1Component implements OnInit {
       },
     ];
     this.horariosService.getHorasTrabajadas().subscribe((resp: any) => {
-      console.log(resp.horario);
+      let color = 'rgba(255, 99, 132, 0.2)';
       for (let clave in resp.horario) {
-        let color = 'rgba(255, 99, 132, 0.2)';
         if (clave == '1') {
           color = 'rgba(54, 162, 235, 0.2)';
         }
         var data = {
-          data: [resp.horario[clave].diferencia.hours],
+          data: [(resp.horario[clave].diferencia.hours + (resp.horario[clave].diferencia.minutes/100)).toFixed(2)],
           label: resp.horario[clave].name,
           backgroundColor: [color],
           borderColor: ['rgb(0, 99, 132)'],
@@ -79,7 +47,7 @@ export class Grafica1Component implements OnInit {
         };
         var datos = {
           nombre: resp.horario[clave].name,
-          pago: resp.horario[clave].diferencia.hours * 4.16,
+          pago: ((resp.horario[clave].diferencia.hours + (resp.horario[clave].diferencia.minutes/100))* 4.16).toFixed(2),
         };
         this.empleados.push(datos);
         this.barChartData.push(data);

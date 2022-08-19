@@ -45,6 +45,21 @@ export class HorariosService {
     data.date = date;
     return this.http.post(`${base_url}/horarios`, data, this.headers);
   }
+  actualizarHorario(data: {
+    id_horario:number;
+    tipo_asistencia: string;
+    idusers: number;
+    date?: string;
+  }) {
+    let dt = new Date();
+    var fecha_hora = this.formatDate(dt);
+    var hora = dt.getHours();
+    var minutos = dt.getMinutes();
+    var segundos = dt.getSeconds();
+    var date = fecha_hora + ' ' + hora + ':' + minutos + ':' + segundos;
+    data.date = date;
+    return this.http.post(`${base_url}/horarios/actualizar`, data, this.headers);
+  }
   get_data_horario() {
     const url = `${base_url}/graficos/horario`;
     return this.http.get(url, this.headers);
@@ -53,6 +68,12 @@ export class HorariosService {
     const url = `${base_url}/horarios`;
     return this.http.get(url, this.headers);
   }
+  getHorario(data:any) {
+    const url = `${base_url}/horarios/cant`;
+    return this.http.post(url, data, this.headers);
+  }
+
+
   formatDate(date: Date) {
     var d = new Date(date),
       month = '' + (d.getMonth() + 1),

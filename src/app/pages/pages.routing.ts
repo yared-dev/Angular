@@ -6,7 +6,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
+import { PagosComponent } from './pagos/pagos.component';
 import { HorariosComponent } from './horarios/horario.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
@@ -47,7 +47,7 @@ const routes: Routes = [
       {
         path: 'pagos',
         canActivate: [AdminGuard],
-        component: PromesasComponent,
+        component: PagosComponent,
         data: { titulo: 'pagos' },
       },
       {

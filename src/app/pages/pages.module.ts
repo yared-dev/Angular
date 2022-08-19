@@ -13,7 +13,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
+import { PagosComponent } from './pagos/pagos.component';
 import { HorariosComponent } from './horarios/horario.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
@@ -28,7 +28,7 @@ import { ChartsModule } from 'ng2-charts';
     Grafica1Component,
     PagesComponent,
     AccountSettingsComponent,
-    PromesasComponent,
+    PagosComponent,
     HorariosComponent,
     PerfilComponent,
     UsuariosComponent,
@@ -40,7 +40,7 @@ import { ChartsModule } from 'ng2-charts';
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    PromesasComponent,
+    PagosComponent,
     AccountSettingsComponent,
     PerfilComponent,
   ],

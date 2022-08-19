@@ -34,7 +34,6 @@ export class TrabajosService {
       delay(50),
       map((resp) => {
         const trabajos = resp.trabajo.map((trabajo: any) => {
-          console.table(trabajo);
           return new Trabajo(
             trabajo.estate,
             trabajo.idjobs,
