@@ -33,6 +33,7 @@ export class Grafica1Component implements OnInit {
       },
     ];
     this.horariosService.getHorasTrabajadas().subscribe((resp: any) => {
+      console.log("🚀 ~ Grafica1Component ~ this.horariosService.getHorasTrabajadas ~ resp:", resp)
       let color = 'rgba(255, 99, 132, 0.2)';
       for (let clave in resp.horario) {
         if (clave == '1') {

@@ -30,13 +30,13 @@ export class PagosComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getTotalUsers();
-    this.getPagosByUser();
   }
 
   getTotalUsers() {
     this.usuarioServices.cargarUsuarios().subscribe((res) => {
       this.totalUsers = res.usuarios;
       this.seleccionados = res.usuarios[0].id || undefined; //para inicializar el combo
+      this.getPagosByUser();
     });
   }
   enviarPago() {
@@ -59,7 +59,6 @@ export class PagosComponent implements OnInit {
   }
   getPagosByUser() {
     this.pagos.getPagosByUser(this.seleccionados).subscribe((resp: any) => {
-      console.log("🚀 ~ file: pagos.component.ts:63 ~ PagosComponent ~ this.pagos.getPagosByUser ~ this.pagoUsuarios:", this.pagoUsuarios)
       this.pagoUsuarios = resp.pago;
     });
     this.trabajoService

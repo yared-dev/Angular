@@ -26,7 +26,7 @@ export class DashboardComponent {
     private trabajoServices: TrabajosService,
     private usuarioServices: UsuariosService,
     private productoService: ProductosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.usuarioServices.cargarUsuarios().subscribe((resp) => {
@@ -70,6 +70,24 @@ export class DashboardComponent {
     }
     this.cargarTrabajo();
   }
+
+  createStyledSelect(label: string, id: string, options: string) {
+    return `
+      <div class="select-container">
+        <label>${label}:</label>
+        <select id="${id}" class="swal2-input">${options}</select>
+      </div>
+    `;
+  }
+
+  createStyledInputWithLabel(label: string, id: string, type: string) {
+    return `
+      <div class="input-container">
+        <label>${label}:</label>
+        <input type="${type}" id="${id}" class="swal2-input">
+      </div>
+    `;
+  }
   async crearTrabajo() {
     var producto = '';
     producto += `<option value="0">NINGUNO</option>`;
@@ -80,18 +98,32 @@ export class DashboardComponent {
     this.usuarios.forEach((element: any) => {
       options += `<option value="${element.id}">${element.name}</option>`;
     });
+    const formHtml = `
+        <div class="form-container">
+          <div class="form-row">
+            ${this.createStyledInputWithLabel('Nombre', 'swal-input1', 'text')}
+            ${this.createStyledInputWithLabel('Modelo', 'swal-input2', 'text')}
+          </div>
+          <div class="form-row">
+            ${this.createStyledInputWithLabel('Telefono', 'swal-input3', 'number')}
+            ${this.createStyledInputWithLabel('Precio', 'swal-input4', 'number')}
+          </div>
+          <div class="form-row">
+            ${this.createStyledInputWithLabel('Descripcion', 'swal-input5', 'text')}
+            ${this.createStyledInputWithLabel('Hora Entrega', 'swal-input6', 'time')}
+          </div>
+          <div class="form-row">
+            ${this.createStyledSelect('Trabajador', 'swal-input7', options)}
+            ${this.createStyledSelect('Producto', 'swal-input8', producto)}
+          </div>
+        </div>
+      `;
+
     const { value = '' } = await Swal.fire<string[]>({
       title: 'Crea un nuevo Trabajo',
-      html:
-        '<div>Nombre:</div><input   type="text" id="swal-input1" class="swal2-input mb-2">' +
-        '<div>Modelo:</div><input   type="text" id="swal-input2" class="swal2-input mb-2">' +
-        '<div>Telefono:</div><input type="number" id="swal-input3" class="swal2-input mb-2">' +
-        '<div>Precio:</div><input type="number" id="swal-input4" class="swal2-input mb-2">' +
-        '<div>Descripcion:</div><input type="text" id="swal-input5" class="swal2-input mb-2">' +
-        '<div>Hora Entrega:</div><input type="time" id="swal-input6" class="swal2-input mb-2">' +
-        `<div>Trabajador:</div><select id="swal-input7" class="swal2-input mb-2">${options}</select>` +
-        `<div>PODUCTO:</div><select id="swal-input8" class="swal2-input mb-2">${producto}</select>`,
+      html: formHtml,
       showCancelButton: true,
+      width: "900px",
       preConfirm: () => {
         return [
           (<HTMLInputElement>document.getElementById('swal-input1')).value,
@@ -115,9 +147,25 @@ export class DashboardComponent {
       const estate = false;
       const iduser = value[6].toString();
       var producto = value[7];
-        console.log(producto)
-
-      if(producto !== "0"){
+      if (
+        name === null || name.trim().length === 0 ||
+        model === null || model.trim().length === 0 ||
+        phone_number === null || isNaN(phone_number) ||
+        price === null || isNaN(price) ||
+        description === null || description.trim().length === 0 ||
+        priority === null || priority.trim().length === 0 ||
+        iduser === null || iduser.trim().length === 0
+      ) {
+         await Swal.fire({
+          title: "ERROR",
+          text: "Todos los campos deben ser llenados",
+          toast: true,
+          timer: 3000,
+          icon: 'error'
+        })
+        return
+      }
+      if (producto !== "0") {
         var productos = this.productos.filter((el: any) => {
           return el.idproduct == producto;
         });
